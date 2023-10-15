@@ -1,11 +1,11 @@
 public enum TokenType {
-    // Single-character tokens.
+    // Single width tokens
     LEFT_PAREN, RIGHT_PAREN, EQUAL, PLUS, MINUS, SEMICOLON, SLASH, STAR,
 
-    // Literals.
+    // Literals
     IDENTIFIER, NUMBER,
 
-    // Keywords.
+    // Keywords
     PRINT,
 
     EOF

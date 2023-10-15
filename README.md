@@ -6,3 +6,4 @@
 # References
 
 - https://craftinginterpreters.com/scanning.html
+- https://craftinginterpreters.com/representing-code.html

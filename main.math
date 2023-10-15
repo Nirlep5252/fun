@@ -1,7 +1,6 @@
-# a = 1;
-# b = 2;
-# c = a + b;
+a = 1;
+b = 2;
+c = a + b;
 
-# print c;
-
-+ - ;
+print c;
+print 6.9;

@@ -6,6 +6,6 @@ public class Utils {
 
     static public void error(String message) {
         System.err.println("ERROR: " + message);
-        System.exit(1);
+        System.exit(69);
     }
 }
