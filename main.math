@@ -1,6 +1,8 @@
-a = 1;
-b = 2;
-c = a + b;
+# a = 1;
+# b = 2;
+# c = a + b;
 
-print c;
-print 6.9;
+# print c;
+# print 6.9;
+
+8 + 8

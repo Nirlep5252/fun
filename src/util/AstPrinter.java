@@ -19,7 +19,7 @@ public class AstPrinter implements Expression.Visitor<String> {
 
     @Override
     public String visitGroupingExpression(Expression.Grouping expression) {
-        return postfix("group", expression.expression);
+        return postfix("", expression.expression);
     }
 
     @Override

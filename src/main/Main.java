@@ -1,6 +1,7 @@
 package main;
 
 import parser.Expression;
+import parser.Parser;
 import scanner.Lexer;
 import scanner.Token;
 import scanner.TokenType;
@@ -15,7 +16,10 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        if (args.length < 1) Message.error("No source file specified.");
+        if (args.length < 1) {
+            Message.error("No source file specified.");
+            System.exit(69);
+        }
 
         try {
             byte[] bytes = Files.readAllBytes(Paths.get(args[0]));
@@ -37,18 +41,25 @@ public class Main {
                     )
             );
             AstPrinter printer = new AstPrinter();
-            System.out.println("POSTFIX: " + printer.print(expression));
+//            System.out.println("POSTFIX: " + printer.print(expression));
         } catch (IOException e) {
             Message.error("File `" + args[0] + "` not found.");
+            System.exit(69);
         }
     }
 
     private static void run(String source) {
         Lexer lexer = new Lexer(source);
         List<Token> tokens = lexer.scanTokens();
-        for (Token token : tokens) {
-            System.out.println(token);
-        }
-        // TODO: Parsing and evaluating
+        Parser parser = new Parser(tokens);
+        Expression expression = parser.parse();
+
+        if (parser.isHadError()) return;
+
+        AstPrinter astPrinter = new AstPrinter();
+        System.out.println(astPrinter.print(expression));
+
+        // TODO: finish parsing
+        // TODO: evaluating expressions
     }
 }

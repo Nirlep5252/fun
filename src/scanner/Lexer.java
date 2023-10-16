@@ -77,6 +77,7 @@ public class Lexer {
                     addIdentifier();
                 } else {
                     Message.error(line, "Unexpected character: " + c);
+                    System.exit(69);
                 }
             }
         }

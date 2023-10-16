@@ -17,6 +17,5 @@ public class Message {
      */
     static public void error(String message) {
         System.err.println("ERROR: " + message);
-        System.exit(69);
     }
 }
