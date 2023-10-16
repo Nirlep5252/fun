@@ -14,10 +14,9 @@
 - Also inspired from: https://craftinginterpreters.com/representing-code.html
 
 ```text
-expression -> literal | unary | binary | grouping;
-literal -> NUMBER;
-grouping -> "(" expression ")";
-unary -> "-" expression;
-binary -> expression operator expression;
-operator -> "+" | "-" | "+" | "*" | "/";
+expression -> term;
+term -> factor (( "+" | "-" ) factor)*;
+factor -> unary (( "/" | "*" ) unary)*;
+unary -> ("-" unary) | primary;
+primary -> NUMBER | "(" expression ")";
 ```

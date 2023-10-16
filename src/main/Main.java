@@ -22,7 +22,7 @@ public class Main {
             String source = new String(bytes, Charset.defaultCharset());
             run(source);
 
-            // This is the example of something that our future parser will generate (hopefully).
+            // This is an example of something that our future parser will generate (hopefully).
             Expression expression = new Expression.Binary(
                     new Expression.Literal(6),
                     new Token(TokenType.PLUS, "+", null, 1),
