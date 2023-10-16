@@ -1,5 +1,6 @@
 package main;
 
+import interpreter.Interpreter;
 import parser.Expression;
 import parser.Parser;
 import scanner.Lexer;
@@ -56,8 +57,9 @@ public class Main {
 
         if (parser.isHadError()) return;
 
-        AstPrinter astPrinter = new AstPrinter();
-        System.out.println(astPrinter.print(expression));
+        Interpreter interpreter = new Interpreter();
+        interpreter.interpret(expression); // NOTE: We can use this class's isHadError() method later.
+
 
         // TODO: finish parsing
         // TODO: evaluating expressions
