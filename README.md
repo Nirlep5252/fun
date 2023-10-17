@@ -3,17 +3,18 @@
 BreakingMath is a simple interpreted mathematical language. You can use it to evaluate mathematical expressions.
 
 It supports:
-- [x] Basic mathematical operations (+, -, *, /, **)
-- [ ] Builtin mathematical functions (sin, cos, tan, log, sqrt)
+- [x] Basic mathematical operations (`+`, `-`, `*`, `/`, `**`)
+- [ ] Builtin mathematical functions (`sin`, `cos`, `tan`, `log`, `sqrt`)
 - [x] Parenthesis
-- [x] Unary operators (-)
+- [x] Unary operators (`-`)
 - [x] Print/Show output (`show`)
-- [ ] Boolean values (true, false)
-- [ ] Comparison operators (==, !=, <, >, <=, >=)
-- [ ] Logical operators (and, or) 
+- [ ] Boolean values (`true`, `false`)
+- [ ] Comparison operators (`==`, `!=`, `<`, `>`, `<=`, `>=`)
+- [ ] Logical operators (`and`, `or`)
 - [x] Variables 
+- [ ] Optional mutability of variables
 - [ ] User defined functions 
-- [ ] Control flow (if, else, while) 
+- [ ] Control flow (`if`, `else`, `loop`, `break`)
 - [ ] User input (`get`)
 
 # References
@@ -21,6 +22,15 @@ It supports:
 - Guide: https://craftinginterpreters.com/
 - Visitor Pattern: https://en.wikipedia.org/wiki/Visitor_pattern
 - BNF: https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form
+
+# Example program:
+
+```math
+let a = 6;
+let b = 9;
+
+show a + b + a * b;
+```
 
 # Language Grammar
 
@@ -36,7 +46,8 @@ statement -> expressionStatement | printStatement;
 expressionStatement -> expression ";";
 printStatement -> "print" expression ";";
 
-expression -> term;
+expression -> assignment;
+assignment -> (IDENTIFIER "=" term) | term;
 term -> factor (( "+" | "-" ) factor)*;
 factor -> pow (( "/" | "*" ) pow)*;
 pow -> unary ("**" unary)*;

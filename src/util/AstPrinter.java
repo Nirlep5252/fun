@@ -28,6 +28,11 @@ public class AstPrinter implements Expression.Visitor<String> {
     }
 
     @Override
+    public String visitAssignmentExpression(Expression.Assignment assignment) {
+        return null;
+    }
+
+    @Override
     public String visitLiteralExpression(Expression.Literal expression) {
         if (expression.value == null) return "null";
         return expression.value.toString();

@@ -7,7 +7,6 @@ import scanner.TokenType;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
 import util.Message;
 
@@ -16,7 +15,7 @@ public class Parser {
     private int current = 0;
     private boolean hadError = false;
 
-    private static class ParserError extends RuntimeException {};
+    private static class ParserError extends RuntimeException {}
 
     public Parser(List<Token> tokens) {
         this.tokens = tokens;
@@ -78,7 +77,26 @@ public class Parser {
     }
 
     private Expression expression() throws ParserError {
-        return term();
+        return assignment();
+    }
+
+    private Expression assignment() throws ParserError {
+        Expression left = term();
+
+        if (match(TokenType.EQUAL)) {
+            Token equals = previous();
+            Expression right = assignment();
+
+            if (left instanceof Expression.Variable) {
+                Token identifier = ((Expression.Variable) left).identifier;
+                return new Expression.Assignment(identifier, right);
+            }
+
+            Message.error(equals.line, "Invalid assignment target.");
+            throw new ParserError();
+        }
+
+        return left;
     }
 
     private Expression term() throws ParserError {
@@ -106,23 +124,15 @@ public class Parser {
     }
 
     private Expression pow() throws ParserError {
-        Stack<Token> operators = new Stack<>();
-        Stack<Expression> expressions = new Stack<>();
-        expressions.add(unary());
+        Expression expression = unary();
 
-        while (match(TokenType.DOUBLE_STAR)) {
-            operators.add(previous());
-            expressions.add(unary());
+        if (match(TokenType.DOUBLE_STAR)) {
+            Token operator = previous();
+            Expression right = pow();
+            expression = new Expression.Binary(expression, operator, right);
         }
 
-        while (expressions.size() > 1) {
-            Expression expression1 = expressions.pop();
-            Expression expression2 = expressions.pop();
-            Token operator = operators.pop();
-            expressions.add(new Expression.Binary(expression2, operator, expression1));
-        }
-
-        return expressions.pop();
+        return expression;
     }
 
     private Expression unary() throws ParserError {

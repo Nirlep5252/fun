@@ -10,7 +10,7 @@ public class Interpreter implements Expression.Visitor<Object>, Statement.Visito
 
     private final Environment environment = new Environment();
 
-    static class RuntimeError extends RuntimeException {};
+    static class RuntimeError extends RuntimeException {}
     private boolean hadError = false;
     public boolean isHadError() {
         return this.hadError;
@@ -124,6 +124,18 @@ public class Interpreter implements Expression.Visitor<Object>, Statement.Visito
             Message.error(expression.identifier.line, e.message);
             throw new RuntimeError();
         }
+    }
+
+    @Override
+    public Object visitAssignmentExpression(Expression.Assignment assignment) {
+        Object value = evaluate(assignment.expression);
+        try {
+            environment.update(assignment.identifier.lexeme, value);
+        } catch (Environment.EnvironmentError e) {
+            Message.error(assignment.identifier.line, e.message);
+            throw new RuntimeError();
+        }
+        return value;
     }
 
     public Object evaluate(Expression expression) {

@@ -1,18 +1,10 @@
-# show 2 ** 2 ** 2 ** 2;
-# show 2 ** (2 ** (2 ** 2));
+let a = 6;
+let b = 9;
 
-# show 2 * 3 ** 2 + 1;
-# show 6 + 9 + 6 * 9;
+show a + b + a * b;
 
-let a = 1;
-let b = a + 1;
-# show a;
-# show b;
+a = a + 1;
+b = b - 1;
 
-let c = a + b;
-show a + b;
-
-# a = 2;
-# b = 1;
-# show a;
-# show b;
+show a;
+show b;

@@ -97,6 +97,21 @@ public abstract class Expression {
         }
     }
 
+    public static class Assignment extends Expression {
+        public final Token identifier;
+        public final Expression expression;
+
+        public Assignment(Token identifier, Expression expression) {
+            this.identifier = identifier;
+            this.expression = expression;
+        }
+
+        @Override
+        public <T> T accept(Visitor<T> visitor) {
+            return visitor.visitAssignmentExpression(this);
+        }
+    }
+
     /**
      * This interface is used to implement the
      * <a href="https://en.wikipedia.org/wiki/Visitor_pattern">Visitor pattern</a>.
@@ -111,6 +126,7 @@ public abstract class Expression {
         T visitLiteralExpression (Literal expression);
         T visitGroupingExpression (Grouping expression);
         T visitVariableExpression (Variable expression);
+        T visitAssignmentExpression(Assignment assignment);
     }
 
     /**
