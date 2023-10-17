@@ -25,7 +25,7 @@ It supports:
 
 # Example program:
 
-```math
+```
 let a = 6;
 let b = 9;
 
