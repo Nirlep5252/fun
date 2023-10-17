@@ -11,7 +11,7 @@ It supports:
 - [ ] Boolean values (true, false)
 - [ ] Comparison operators (==, !=, <, >, <=, >=)
 - [ ] Logical operators (and, or) 
-- [ ] Variables 
+- [x] Variables 
 - [ ] User defined functions 
 - [ ] Control flow (if, else, while) 
 - [ ] User input (`get`)
