@@ -29,7 +29,15 @@ It supports:
 let a = 6;
 let b = 9;
 
-show a + b + a * b;
+show a + b + a * b; # prints 69 (nice)
+
+let mut x = 1;
+x = x + 1;
+show x; # prints 2
+
+let y = 1;
+y = y + 1; # error! y is not mutable
+show y;
 ```
 
 # Language Grammar
@@ -40,7 +48,7 @@ show a + b + a * b;
 ```text
 program -> declaration* EOF;
 declaration -> variableDeclaration | statement;
-variableDeclaration -> "let" IDENTIFIER "=" expression ";";
+variableDeclaration -> "let" ("mut")? IDENTIFIER "=" expression ";";
 
 statement -> expressionStatement | printStatement;
 expressionStatement -> expression ";";

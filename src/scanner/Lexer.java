@@ -22,6 +22,7 @@ public class Lexer {
         keywords = new HashMap<>();
         keywords.put("show", TokenType.PRINT);
         keywords.put("let", TokenType.LET);
+        keywords.put("mut", TokenType.MUT);
     }
 
     public Lexer(String source) {

@@ -32,10 +32,12 @@ public abstract class Statement {
     public static class VariableDeclaration extends Statement {
         public final Token identifier;
         public final Expression expression;
+        public final Boolean mutable;
 
-        public VariableDeclaration(Token identifier, Expression expression) {
+        public VariableDeclaration(Token identifier, Expression expression, Boolean mutable) {
             this.identifier = identifier;
             this.expression = expression;
+            this.mutable = mutable;
         }
 
         @Override

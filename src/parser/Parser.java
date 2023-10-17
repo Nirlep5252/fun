@@ -48,11 +48,12 @@ public class Parser {
     }
 
     private Statement variableDeclaration() throws ParserError {
+        Boolean mutable = match(TokenType.MUT);
         Token variableIdentifier = consume(TokenType.IDENTIFIER, "Expected variable name.");
         if (match(TokenType.EQUAL)) {
             Expression expression = expression();
             consume(TokenType.SEMICOLON, "Expected `;` after variable declaration.");
-            return new Statement.VariableDeclaration(variableIdentifier, expression);
+            return new Statement.VariableDeclaration(variableIdentifier, expression, mutable);
         } else {
             Message.error(variableIdentifier.line, "Expected '=' after variable name.");
             throw new ParserError();

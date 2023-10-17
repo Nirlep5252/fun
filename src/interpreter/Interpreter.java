@@ -59,7 +59,11 @@ public class Interpreter implements Expression.Visitor<Object>, Statement.Visito
     @Override
     public Void visitVariableDeclarationStatement(Statement.VariableDeclaration variableDeclaration) throws RuntimeError {
         try {
-            environment.define(variableDeclaration.identifier.lexeme, evaluate(variableDeclaration.expression));
+            environment.define(
+                variableDeclaration.identifier.lexeme,
+                evaluate(variableDeclaration.expression),
+                variableDeclaration.mutable
+            );
         } catch (Environment.EnvironmentError e) {
             Message.error(variableDeclaration.identifier.line, e.message);
             throw new RuntimeError();

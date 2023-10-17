@@ -1,10 +1,12 @@
 let a = 6;
 let b = 9;
 
-show a + b + a * b;
+# show a + b + a * b;
 
-a = a + 1;
-b = b - 1;
+let mut x = 1;
+x = x + 1;
+show x; # Prints 2
 
-show a;
-show b;
+let y = 1;
+y = y + 1; # ERROR!
+show y;
