@@ -12,7 +12,7 @@ It supports:
 - [ ] Comparison operators (`==`, `!=`, `<`, `>`, `<=`, `>=`)
 - [ ] Logical operators (`and`, `or`)
 - [x] Variables 
-- [ ] Optional mutability of variables
+- [x] Optional mutability of variables
 - [ ] User defined functions 
 - [ ] Control flow (`if`, `else`, `loop`, `break`)
 - [ ] User input (`get`)
