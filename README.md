@@ -4,15 +4,15 @@ BreakingMath is a simple interpreted mathematical language. You can use it to ev
 
 It supports:
 - [x] Basic mathematical operations (+, -, *, /, **)
-- [ ] Builtin mathematical functions (sin, cos, tan, log, sqrt) [SOON]
+- [ ] Builtin mathematical functions (sin, cos, tan, log, sqrt)
 - [x] Parenthesis
 - [x] Unary operators (-)
-- [ ] Boolean values (true, false) [SOON]
-- [ ] Comparison operators (==, !=, <, >, <=, >=) [SOON]
-- [ ] Logical operators (and, or) [SOON]
-- [ ] Variables [SOON]
-- [ ] User defined functions [SOON]
-- [ ] Control flow (if, else, while) [SOON]
+- [ ] Boolean values (true, false)
+- [ ] Comparison operators (==, !=, <, >, <=, >=)
+- [ ] Logical operators (and, or) 
+- [ ] Variables 
+- [ ] User defined functions 
+- [ ] Control flow (if, else, while) 
 
 # References
 
