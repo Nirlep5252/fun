@@ -7,6 +7,7 @@ import scanner.TokenType;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 import util.Message;
 
@@ -73,15 +74,35 @@ public class Parser {
     }
 
     private Expression factor() throws ParserError {
-        Expression expression = unary();
+        Expression expression = pow();
 
         while (match(TokenType.STAR, TokenType.SLASH)) {
             Token operator = previous();
-            Expression right = unary();
+            Expression right = pow();
             expression = new Expression.Binary(expression, operator, right);
         }
 
         return expression;
+    }
+
+    private Expression pow() throws ParserError {
+        Stack<Token> operators = new Stack<>();
+        Stack<Expression> expressions = new Stack<>();
+        expressions.add(unary());
+
+        while (match(TokenType.DOUBLE_STAR)) {
+            operators.add(previous());
+            expressions.add(unary());
+        }
+
+        while (expressions.size() > 1) {
+            Expression expression1 = expressions.pop();
+            Expression expression2 = expressions.pop();
+            Token operator = operators.pop();
+            expressions.add(new Expression.Binary(expression2, operator, expression1));
+        }
+
+        return expressions.pop();
     }
 
     private Expression unary() throws ParserError {

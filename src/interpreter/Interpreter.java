@@ -66,6 +66,9 @@ public class Interpreter implements Expression.Visitor<Object>, Statement.Visito
             case STAR -> {
                 return (double) evaluate(expression.left) * (double) evaluate(expression.right);
             }
+            case DOUBLE_STAR -> {
+                return Math.pow((double) evaluate(expression.left), (double) evaluate(expression.right));
+            }
             case SLASH -> {
                 Object right = evaluate(expression.right);
                 if (right instanceof Double && (double) right == 0.0) {

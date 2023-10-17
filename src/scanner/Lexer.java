@@ -62,7 +62,16 @@ public class Lexer {
             case '-' -> addToken(TokenType.MINUS);
             case ';' -> addToken(TokenType.SEMICOLON);
             case '/' -> addToken(TokenType.SLASH);
-            case '*' -> addToken(TokenType.STAR);
+//            case '*' -> addToken(TokenType.STAR);
+
+            case '*' -> {
+                if (peek() == '*') {
+                    advance();
+                    addToken(TokenType.DOUBLE_STAR);
+                } else {
+                    addToken(TokenType.STAR);
+                }
+            }
 
             // Comments
             case '#' -> {

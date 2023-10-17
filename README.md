@@ -1,7 +1,18 @@
 # Breaking Math
 
-- A simple mathematical evaluator. (please give us marks)
-- Please use IntelliJ while running this project (IDK java and how else to run this shit)
+BreakingMath is a simple interpreted mathematical language. You can use it to evaluate mathematical expressions.
+
+It supports:
+- [x] Basic mathematical operations (+, -, *, /, **)
+- [ ] Builtin mathematical functions (sin, cos, tan, log, sqrt) [SOON]
+- [x] Parenthesis
+- [x] Unary operators (-)
+- [ ] Boolean values (true, false) [SOON]
+- [ ] Comparison operators (==, !=, <, >, <=, >=) [SOON]
+- [ ] Logical operators (and, or) [SOON]
+- [ ] Variables [SOON]
+- [ ] User defined functions [SOON]
+- [ ] Control flow (if, else, while) [SOON]
 
 # References
 
@@ -22,7 +33,8 @@ printStatement -> "print" expression ";";
 
 expression -> term;
 term -> factor (( "+" | "-" ) factor)*;
-factor -> unary (( "/" | "*" ) unary)*;
+factor -> pow (( "/" | "*" ) pow)*;
+pow -> unary ("**" unary)*;
 unary -> ("-" unary) | primary;
 primary -> NUMBER | "(" expression ")";
 ```
