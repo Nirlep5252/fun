@@ -1,4 +1,4 @@
-package parser;
+package language;
 
 import scanner.Token;
 import util.AstPrinter;
@@ -39,7 +39,7 @@ public abstract class Expression {
         public final Token operator;
         public final Expression right;
 
-        Unary (Token operator, Expression right) {
+        public Unary(Token operator, Expression right) {
             this.operator = operator;
             this.right = right;
         }
@@ -74,7 +74,7 @@ public abstract class Expression {
     public static class Grouping extends Expression {
         public final Expression expression;
 
-        Grouping (Expression expression) {
+        public Grouping(Expression expression) {
             this.expression = expression;
         }
 

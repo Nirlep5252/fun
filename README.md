@@ -5,8 +5,9 @@
 
 # References
 
-- scanner: https://craftinginterpreters.com/scanning.html
-- parser: https://craftinginterpreters.com/parsing-expressions.html
+- Guide: https://craftinginterpreters.com/
+- Visitor Pattern: https://en.wikipedia.org/wiki/Visitor_pattern
+- BNF: https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form
 
 # Language Grammar
 
@@ -14,6 +15,11 @@
 - Also inspired from: https://craftinginterpreters.com/representing-code.html
 
 ```text
+program -> statement* EOF;
+statement -> expressionStatement | printStatement;
+expressionStatement -> expression ";";
+printStatement -> "print" expression ";";
+
 expression -> term;
 term -> factor (( "+" | "-" ) factor)*;
 factor -> unary (( "/" | "*" ) unary)*;

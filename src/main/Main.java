@@ -1,7 +1,8 @@
 package main;
 
 import interpreter.Interpreter;
-import parser.Expression;
+import language.Expression;
+import language.Statement;
 import parser.Parser;
 import scanner.Lexer;
 import scanner.Token;
@@ -52,13 +53,22 @@ public class Main {
     private static void run(String source) {
         Lexer lexer = new Lexer(source);
         List<Token> tokens = lexer.scanTokens();
+
+//        for (Token token : tokens) {
+//            System.out.println(token);
+//        }
+
         Parser parser = new Parser(tokens);
-        Expression expression = parser.parse();
+        List<Statement> statements = parser.parse();
 
         if (parser.isHadError()) return;
 
         Interpreter interpreter = new Interpreter();
-        interpreter.interpret(expression); // NOTE: We can use this class's isHadError() method later.
+        interpreter.interpret(statements); // NOTE: We can use this class's isHadError() method later.
+
+        if (interpreter.isHadError()) {
+            System.exit(69);
+        }
 
 
         // TODO: finish parsing

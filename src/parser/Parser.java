@@ -1,8 +1,11 @@
 package parser;
 
+import language.Expression;
+import language.Statement;
 import scanner.Token;
 import scanner.TokenType;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import util.Message;
@@ -18,17 +21,39 @@ public class Parser {
         this.tokens = tokens;
     }
 
-    public Expression parse() {
-        try {
-            return expression();
-        } catch (ParserError e) {
-            this.hadError = true;
-            return null;
+    public List<Statement> parse() {
+        List<Statement> statements = new ArrayList<>();
+        while (!isAtEnd()) {
+            try {
+                statements.add(statement());
+            } catch (ParserError e) {
+                synchronize();
+                hadError = true;
+            }
         }
+
+        return statements;
     }
 
     public boolean isHadError() {
         return this.hadError;
+    }
+
+    public Statement statement() throws ParserError {
+        if (match(TokenType.PRINT)) return printStatement();
+        return expressionStatement();
+    }
+
+    private Statement printStatement() throws ParserError {
+        Expression value = expression();
+        consume(TokenType.SEMICOLON, "Expected `;` after value.");
+        return new Statement.PrintStatement(value);
+    }
+
+    private Statement expressionStatement() throws ParserError {
+        Expression value = expression();
+        consume(TokenType.SEMICOLON, "Expected `;` after value.");
+        return new Statement.ExpressionStatement(value);
     }
 
     private Expression expression() throws ParserError {

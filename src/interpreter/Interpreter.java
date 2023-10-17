@@ -1,22 +1,31 @@
 package interpreter;
 
-import parser.Expression;
+import language.Expression;
+import language.Statement;
 import util.Message;
 
-public class Interpreter implements Expression.Visitor<Object> {
+import java.util.List;
+
+public class Interpreter implements Expression.Visitor<Object>, Statement.Visitor<Void> {
+
     static class RuntimeError extends RuntimeException {};
     private boolean hadError = false;
+    public boolean isHadError() {
+        return this.hadError;
+    }
 
-    public void interpret(Expression expression) {
+    public void interpret(List<Statement> statements) {
         try {
-            System.out.println(stringify(evaluate(expression)));
+            for (Statement statement : statements) {
+                execute(statement);
+            }
         } catch (RuntimeError e) {
             this.hadError = true;
         }
     }
 
-    public boolean isHadError() {
-        return this.hadError;
+    public void execute(Statement statement) {
+        statement.accept(this);
     }
 
     public String stringify(Object value) {
@@ -30,6 +39,19 @@ public class Interpreter implements Expression.Visitor<Object> {
         }
 
         return value.toString();
+    }
+
+    @Override
+    public Void visitExpressionStatement(Statement.ExpressionStatement expressionStatement) {
+        evaluate(expressionStatement.expression);
+        return null;
+    }
+
+    @Override
+    public Void visitPrintStatement(Statement.PrintStatement printStatement) {
+        Object value = evaluate(printStatement.expression);
+        System.out.println(stringify(value));
+        return null;
     }
 
     @Override

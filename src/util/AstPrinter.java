@@ -1,6 +1,6 @@
 package util;
 
-import parser.Expression;
+import language.Expression;
 
 public class AstPrinter implements Expression.Visitor<String> {
     public String print(Expression expression) {
