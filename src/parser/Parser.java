@@ -26,7 +26,7 @@ public class Parser {
         List<Statement> statements = new ArrayList<>();
         while (!isAtEnd()) {
             try {
-                statements.add(statement());
+                statements.add(declaration());
             } catch (ParserError e) {
                 synchronize();
                 hadError = true;
@@ -40,20 +40,40 @@ public class Parser {
         return this.hadError;
     }
 
-    public Statement statement() throws ParserError {
+    private Statement declaration() throws ParserError {
+        if (match(TokenType.LET)) {
+            return variableDeclaration();
+        }
+
+        return statement();
+    }
+
+    private Statement variableDeclaration() throws ParserError {
+        Token variableIdentifier = consume(TokenType.IDENTIFIER, "Expected variable name.");
+        if (match(TokenType.EQUAL)) {
+            Expression expression = expression();
+            consume(TokenType.SEMICOLON, "Expected `;` after variable declaration.");
+            return new Statement.VariableDeclaration(variableIdentifier, expression);
+        } else {
+            Message.error(variableIdentifier.line, "Expected '=' after variable name.");
+            throw new ParserError();
+        }
+    }
+
+    private Statement statement() throws ParserError {
         if (match(TokenType.PRINT)) return printStatement();
         return expressionStatement();
     }
 
     private Statement printStatement() throws ParserError {
         Expression value = expression();
-        consume(TokenType.SEMICOLON, "Expected `;` after value.");
+        consume(TokenType.SEMICOLON, "Expected `;` after print statement.");
         return new Statement.PrintStatement(value);
     }
 
     private Statement expressionStatement() throws ParserError {
         Expression value = expression();
-        consume(TokenType.SEMICOLON, "Expected `;` after value.");
+        consume(TokenType.SEMICOLON, "Expected `;` after expression.");
         return new Statement.ExpressionStatement(value);
     }
 
@@ -124,6 +144,10 @@ public class Parser {
             Expression expression = expression();
             consume(TokenType.RIGHT_PAREN, "Expected ')' after expression.");
             return new Expression.Grouping(expression);
+        }
+
+        if (match(TokenType.IDENTIFIER)) {
+            return new Expression.Variable(previous());
         }
 
         Message.error(peek().line, "Expected expression.");

@@ -20,7 +20,8 @@ public class Lexer {
     private static final Map<String, TokenType> keywords;
     static {
         keywords = new HashMap<>();
-        keywords.put("print", TokenType.PRINT);
+        keywords.put("show", TokenType.PRINT);
+        keywords.put("let", TokenType.LET);
     }
 
     public Lexer(String source) {
@@ -62,7 +63,6 @@ public class Lexer {
             case '-' -> addToken(TokenType.MINUS);
             case ';' -> addToken(TokenType.SEMICOLON);
             case '/' -> addToken(TokenType.SLASH);
-//            case '*' -> addToken(TokenType.STAR);
 
             case '*' -> {
                 if (peek() == '*') {

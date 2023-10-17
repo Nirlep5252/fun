@@ -1,13 +1,10 @@
 package main;
 
 import interpreter.Interpreter;
-import language.Expression;
 import language.Statement;
 import parser.Parser;
 import scanner.Lexer;
 import scanner.Token;
-import scanner.TokenType;
-import util.AstPrinter;
 import util.Message;
 
 import java.io.IOException;
@@ -27,23 +24,6 @@ public class Main {
             byte[] bytes = Files.readAllBytes(Paths.get(args[0]));
             String source = new String(bytes, Charset.defaultCharset());
             run(source);
-
-            // This is an example of something that our future parser will generate (hopefully).
-            Expression expression = new Expression.Binary(
-                    new Expression.Literal(6),
-                    new Token(TokenType.PLUS, "+", null, 1),
-                    new Expression.Binary(
-                            new Expression.Literal(9),
-                            new Token(TokenType.PLUS, "+", null, 1),
-                            new Expression.Binary(
-                                    new Expression.Literal(6),
-                                    new Token(TokenType.STAR, "*", null, 1),
-                                    new Expression.Literal(9)
-                            )
-                    )
-            );
-            AstPrinter printer = new AstPrinter();
-//            System.out.println("POSTFIX: " + printer.print(expression));
         } catch (IOException e) {
             Message.error("File `" + args[0] + "` not found.");
             System.exit(69);
@@ -64,12 +44,11 @@ public class Main {
         if (parser.isHadError()) return;
 
         Interpreter interpreter = new Interpreter();
-        interpreter.interpret(statements); // NOTE: We can use this class's isHadError() method later.
+        interpreter.interpret(statements);
 
         if (interpreter.isHadError()) {
             System.exit(69);
         }
-
 
         // TODO: finish parsing
         // TODO: evaluating expressions

@@ -23,6 +23,11 @@ public class AstPrinter implements Expression.Visitor<String> {
     }
 
     @Override
+    public String visitVariableExpression(Expression.Variable expression) {
+        return null;
+    }
+
+    @Override
     public String visitLiteralExpression(Expression.Literal expression) {
         if (expression.value == null) return "null";
         return expression.value.toString();

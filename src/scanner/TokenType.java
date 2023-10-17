@@ -11,7 +11,7 @@ public enum TokenType {
     IDENTIFIER, NUMBER,
 
     // Keywords
-    PRINT,
+    PRINT, LET,
 
     EOF
 }

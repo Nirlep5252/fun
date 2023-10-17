@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
+  <configuration default="false" name="Run with file" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="main.Main" />
     <module name="BreakingMath" />
     <option name="PROGRAM_PARAMETERS" value="main.math" />

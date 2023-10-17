@@ -84,6 +84,19 @@ public abstract class Expression {
         }
     }
 
+    public static class Variable extends Expression {
+        public final Token identifier;
+
+        public Variable(Token identifier) {
+            this.identifier = identifier;
+        }
+
+        @Override
+        public <T> T accept(Visitor<T> visitor) {
+            return visitor.visitVariableExpression(this);
+        }
+    }
+
     /**
      * This interface is used to implement the
      * <a href="https://en.wikipedia.org/wiki/Visitor_pattern">Visitor pattern</a>.
@@ -97,6 +110,7 @@ public abstract class Expression {
         T visitUnaryExpression (Unary expression);
         T visitLiteralExpression (Literal expression);
         T visitGroupingExpression (Grouping expression);
+        T visitVariableExpression (Variable expression);
     }
 
     /**

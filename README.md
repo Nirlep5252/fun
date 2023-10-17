@@ -7,12 +7,14 @@ It supports:
 - [ ] Builtin mathematical functions (sin, cos, tan, log, sqrt)
 - [x] Parenthesis
 - [x] Unary operators (-)
+- [x] Print/Show output (`show`)
 - [ ] Boolean values (true, false)
 - [ ] Comparison operators (==, !=, <, >, <=, >=)
 - [ ] Logical operators (and, or) 
 - [ ] Variables 
 - [ ] User defined functions 
 - [ ] Control flow (if, else, while) 
+- [ ] User input (`get`)
 
 # References
 
@@ -26,7 +28,10 @@ It supports:
 - Also inspired from: https://craftinginterpreters.com/representing-code.html
 
 ```text
-program -> statement* EOF;
+program -> declaration* EOF;
+declaration -> variableDeclaration | statement;
+variableDeclaration -> "let" IDENTIFIER "=" expression ";";
+
 statement -> expressionStatement | printStatement;
 expressionStatement -> expression ";";
 printStatement -> "print" expression ";";
@@ -36,5 +41,5 @@ term -> factor (( "+" | "-" ) factor)*;
 factor -> pow (( "/" | "*" ) pow)*;
 pow -> unary ("**" unary)*;
 unary -> ("-" unary) | primary;
-primary -> NUMBER | "(" expression ")";
+primary -> NUMBER | "(" expression ")" | IDENTIFIER
 ```

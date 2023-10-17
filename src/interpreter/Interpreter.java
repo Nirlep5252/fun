@@ -8,6 +8,8 @@ import java.util.List;
 
 public class Interpreter implements Expression.Visitor<Object>, Statement.Visitor<Void> {
 
+    private final Environment environment = new Environment();
+
     static class RuntimeError extends RuntimeException {};
     private boolean hadError = false;
     public boolean isHadError() {
@@ -51,6 +53,17 @@ public class Interpreter implements Expression.Visitor<Object>, Statement.Visito
     public Void visitPrintStatement(Statement.PrintStatement printStatement) {
         Object value = evaluate(printStatement.expression);
         System.out.println(stringify(value));
+        return null;
+    }
+
+    @Override
+    public Void visitVariableDeclarationStatement(Statement.VariableDeclaration variableDeclaration) throws RuntimeError {
+        try {
+            environment.define(variableDeclaration.identifier.lexeme, evaluate(variableDeclaration.expression));
+        } catch (Environment.EnvironmentError e) {
+            Message.error(variableDeclaration.identifier.line, e.message);
+            throw new RuntimeError();
+        }
         return null;
     }
 
@@ -101,6 +114,16 @@ public class Interpreter implements Expression.Visitor<Object>, Statement.Visito
     @Override
     public Object visitGroupingExpression(Expression.Grouping expression) {
         return evaluate(expression.expression);
+    }
+
+    @Override
+    public Object visitVariableExpression(Expression.Variable expression) throws RuntimeError {
+        try {
+            return environment.get(expression.identifier.lexeme);
+        } catch (Environment.EnvironmentError e) {
+            Message.error(expression.identifier.line, e.message);
+            throw new RuntimeError();
+        }
     }
 
     public Object evaluate(Expression expression) {
