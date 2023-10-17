@@ -1,6 +1,7 @@
 # Breaking Math
 
-BreakingMath is a simple interpreted mathematical language. You can use it to evaluate mathematical expressions.
+BreakingMath is a simple interpreted programming language.
+You can use it to evaluate mathematical expressions (cuz it only has number datatype lol).
 
 It supports:
 - [x] Basic mathematical operations (`+`, `-`, `*`, `/`, `**`)
