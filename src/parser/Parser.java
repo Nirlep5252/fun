@@ -103,7 +103,7 @@ public class Parser {
     }
 
     private Expression assignment() throws ParserError {
-        Expression left = equality();
+        Expression left = logic_or();
 
         if (match(TokenType.EQUAL)) {
             Token equals = previous();
@@ -119,6 +119,30 @@ public class Parser {
         }
 
         return left;
+    }
+
+    private Expression logic_or() throws ParserError {
+        Expression expression = logic_and();
+
+        while(match(TokenType.OR)) {
+            Token operator = previous();
+            Expression right = logic_and();
+            expression = new Expression.Logical(expression, operator, right);
+        }
+
+        return expression;
+    }
+
+    private Expression logic_and() throws ParserError {
+        Expression expression = equality();
+
+        while (match(TokenType.AND)) {
+            Token operator = previous();
+            Expression right = equality();
+            expression = new Expression.Logical(expression, operator, right);
+        }
+
+        return expression;
     }
 
     private Expression equality() throws ParserError {

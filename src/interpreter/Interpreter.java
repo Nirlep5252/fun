@@ -2,6 +2,7 @@ package interpreter;
 
 import language.Expression;
 import language.Statement;
+import scanner.TokenType;
 import util.Message;
 
 import java.util.List;
@@ -244,6 +245,18 @@ public class Interpreter implements Expression.Visitor<Object>, Statement.Visito
             throw new RuntimeError();
         }
         return value;
+    }
+
+    @Override
+    public Object visitLogicalExpression(Expression.Logical expression) {
+        Object left = truthy(evaluate(expression.left));
+        if (expression.operator.type == TokenType.OR) {
+            if (truthy(left)) return left;
+        } else {
+            if (!truthy(left)) return left;
+        }
+
+        return evaluate(expression.right);
     }
 
     private Object evaluate(Expression expression) {

@@ -9,7 +9,6 @@ import util.AstPrinter;
  * Binary, Unary, Literal, and Grouping.
  */
 public abstract class Expression {
-
     /**
      * This class represents a binary expression. <br />
      * Eg: <code>1 + 2</code>
@@ -112,6 +111,23 @@ public abstract class Expression {
         }
     }
 
+    public static class Logical extends Expression {
+        public final Expression left;
+        public final Token operator;
+        public final Expression right;
+
+        public Logical(Expression left, Token operator, Expression right) {
+            this.left = left;
+            this.operator = operator;
+            this.right = right;
+        }
+
+        @Override
+        public <T> T accept(Visitor<T> visitor) {
+            return visitor.visitLogicalExpression(this);
+        }
+    }
+
     /**
      * This interface is used to implement the
      * <a href="https://en.wikipedia.org/wiki/Visitor_pattern">Visitor pattern</a>.
@@ -127,6 +143,7 @@ public abstract class Expression {
         T visitGroupingExpression (Grouping expression);
         T visitVariableExpression (Variable expression);
         T visitAssignmentExpression(Assignment assignment);
+        T visitLogicalExpression(Logical expression);
     }
 
     /**

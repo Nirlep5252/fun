@@ -1,19 +1,5 @@
-let a = 6;
-let b = 9;
+let a = true;
+let b = untrue;
 
-let nice = a + b + a * b;
-show nice;
-
-if nice == 69 {
-    show 123;
-} else {
-    show 321;
-}
-
-let mut x = 1;
-x = x + 1;
-show x; # prints 2
-
-let y = 1;
-y = y + 1; # error! y is not mutable
-show y;
+show a or b;
+show a and b;

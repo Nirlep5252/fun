@@ -18,6 +18,7 @@ It supports:
 - [ ] User defined functions 
 - [ ] Control flow (`if`, `else`, `loop`, `break`)
 - [ ] User input (`get`)
+- [ ] Importing other files (`use`)
 - [ ] Prepositional logic (premises, validation of statements, rules of inference, etc.)
 
 # References
@@ -67,7 +68,9 @@ printStatement -> "print" expression ";";
 ifStatement -> "if" expression statement ("else" statement)?;
 
 expression -> assignment;
-assignment -> (IDENTIFIER "=" assignment) | equality;
+assignment -> (IDENTIFIER "=" assignment) | logic_or;
+logic_or -> logic_and ("or" logic_and)*;
+logic_and -> equality ("and" equality)*;
 equality -> comparison (("==") comparison)*;
 comparison -> term ((">" | ">=" | "<" | "<=") term)*;
 term -> factor (( "+" | "-" ) factor)*;
