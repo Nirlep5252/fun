@@ -11,7 +11,7 @@ It supports:
 - [x] Print/Show output (`show`)
 - [x] Boolean values (`true`, `false`)
 - [x] Comparison operators (`==`, `!=`, `<`, `>`, `<=`, `>=`)
-- [ ] Logical operators (`and`, `or`)
+- [x] Logical operators (`and`, `or`)
 - [x] Variables 
 - [x] Optional mutability of variables
 - [x] Variable scoping
