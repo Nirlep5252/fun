@@ -147,7 +147,7 @@ public class Parser {
     }
 
     private Expression unary() throws ParserError {
-        if (match(TokenType.MINUS)) {
+        if (match(TokenType.MINUS, TokenType.NOT)) {
             Token operator = previous();
             Expression right = unary();
             return new Expression.Unary(operator, right);
@@ -171,6 +171,13 @@ public class Parser {
             return new Expression.Variable(previous());
         }
 
+        if (match(TokenType.TRUE)) {
+            return new Expression.Literal(true);
+        }
+        if (match(TokenType.FALSE)) {
+            return new Expression.Literal(false);
+        }
+
         Message.error(peek().line, "Expected expression.");
         throw new ParserError();
     }
@@ -182,7 +189,7 @@ public class Parser {
             if (previous().type == TokenType.SEMICOLON) return;
 
             switch (peek().type) {
-                case PRINT -> {return;}
+                case PRINT, LET, FN, FOR, IF, RETURN, WHILE -> {return;}
                 default -> {}
             }
             advance();

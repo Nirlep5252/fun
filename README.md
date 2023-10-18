@@ -63,6 +63,6 @@ assignment -> (IDENTIFIER "=" term) | term;
 term -> factor (( "+" | "-" ) factor)*;
 factor -> pow (( "/" | "*" ) pow)*;
 pow -> unary ("**" unary)*;
-unary -> ("-" unary) | primary;
-primary -> NUMBER | "(" expression ")" | IDENTIFIER
+unary -> (("-" | NOT) unary) | primary;
+primary -> NUMBER | "(" expression ")" | IDENTIFIER | TRUE | FALSE;
 ```

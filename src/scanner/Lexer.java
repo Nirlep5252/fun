@@ -23,6 +23,13 @@ public class Lexer {
         keywords.put("show", TokenType.PRINT);
         keywords.put("let", TokenType.LET);
         keywords.put("mut", TokenType.MUT);
+        keywords.put("true", TokenType.TRUE);
+        keywords.put("false", TokenType.FALSE);
+        keywords.put("untrue", TokenType.FALSE);
+        keywords.put("unfalse", TokenType.TRUE);
+        keywords.put("not", TokenType.NOT);
+        keywords.put("and", TokenType.AND);
+        keywords.put("or", TokenType.OR);
     }
 
     public Lexer(String source) {
@@ -66,6 +73,7 @@ public class Lexer {
             case '/' -> addToken(TokenType.SLASH);
             case '{' -> addToken(TokenType.LEFT_CURLY);
             case '}' -> addToken(TokenType.RIGHT_CURLY);
+            case ',' -> addToken(TokenType.COMMA);
 
             case '*' -> {
                 if (peek() == '*') {

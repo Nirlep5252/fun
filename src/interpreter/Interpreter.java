@@ -91,26 +91,52 @@ public class Interpreter implements Expression.Visitor<Object>, Statement.Visito
 
     @Override
     public Object visitBinaryExpression(Expression.Binary expression) throws RuntimeError {
+        Object left = evaluate(expression.left);
+        Object right = evaluate(expression.right);
         switch (expression.operator.type) {
             case MINUS -> {
-                return (double) evaluate(expression.left) - (double) evaluate(expression.right);
-            }
-            case PLUS -> {
-                return (double) evaluate(expression.left) + (double) evaluate(expression.right);
-            }
-            case STAR -> {
-                return (double) evaluate(expression.left) * (double) evaluate(expression.right);
-            }
-            case DOUBLE_STAR -> {
-                return Math.pow((double) evaluate(expression.left), (double) evaluate(expression.right));
-            }
-            case SLASH -> {
-                Object right = evaluate(expression.right);
-                if (right instanceof Double && (double) right == 0.0) {
-                    Message.error(expression.operator.line, "Division by zero");
+                if (left instanceof Double && right instanceof Double) {
+                    return (double) left - (double) right;
+                } else {
+                    Message.error(expression.operator.line, "Expected number values");
                     throw new RuntimeError();
                 }
-                return (double) evaluate(expression.left) / (double) evaluate(expression.right);
+            }
+            case PLUS -> {
+                if (left instanceof Double && right instanceof Double) {
+                    return (double) left + (double) right;
+                } else {
+                    Message.error(expression.operator.line, "Expected number values");
+                    throw new RuntimeError();
+                }
+            }
+            case STAR -> {
+                if (left instanceof Double && right instanceof Double) {
+                    return (double) left * (double) right;
+                } else {
+                    Message.error(expression.operator.line, "Expected number values");
+                    throw new RuntimeError();
+                }
+            }
+            case DOUBLE_STAR -> {
+                if (left instanceof Double && right instanceof Double) {
+                    return Math.pow((double) left, (double) right);
+                } else {
+                    Message.error(expression.operator.line, "Expected number values");
+                    throw new RuntimeError();
+                }
+            }
+            case SLASH -> {
+                if (left instanceof Double && right instanceof Double) {
+                    return Math.pow((double) left, (double) right);
+                } else {
+                    if ((double) right == 0.0) {
+                        Message.error(expression.operator.line, "Division by zero is not allowed");
+                        throw new RuntimeError();
+                    }
+                    Message.error(expression.operator.line, "Expected number values");
+                    throw new RuntimeError();
+                }
             }
         }
 
@@ -121,7 +147,22 @@ public class Interpreter implements Expression.Visitor<Object>, Statement.Visito
     public Object visitUnaryExpression(Expression.Unary expression) {
         switch (expression.operator.type) {
             case MINUS -> {
-                return -(double) evaluate(expression.right);
+                Object right = evaluate(expression.right);
+                if (right instanceof Double)
+                    return -(double) right;
+                else {
+                    Message.error(expression.operator.line, "Expected number value");
+                    throw new RuntimeError();
+                }
+            }
+            case NOT -> {
+                Object right = evaluate(expression.right);
+                if (right instanceof Boolean) {
+                    return !(boolean) right;
+                } else {
+                    Message.error(expression.operator.line, "Expected boolean value");
+                    throw new RuntimeError();
+                }
             }
         }
 
