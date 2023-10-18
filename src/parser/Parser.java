@@ -62,7 +62,17 @@ public class Parser {
 
     private Statement statement() throws ParserError {
         if (match(TokenType.PRINT)) return printStatement();
+        if (match(TokenType.LEFT_CURLY)) return block();
         return expressionStatement();
+    }
+
+    private Statement block() throws ParserError {
+        List<Statement> statements = new ArrayList<>();
+        while (!check(TokenType.RIGHT_CURLY) && !isAtEnd()) {
+            statements.add(declaration());
+        }
+        consume(TokenType.RIGHT_CURLY, "Expected '}' after block.");
+        return new Statement.Block(statements);
     }
 
     private Statement printStatement() throws ParserError {

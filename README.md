@@ -14,9 +14,11 @@ It supports:
 - [ ] Logical operators (`and`, `or`)
 - [x] Variables 
 - [x] Optional mutability of variables
+- [x] Variable scoping
 - [ ] User defined functions 
 - [ ] Control flow (`if`, `else`, `loop`, `break`)
 - [ ] User input (`get`)
+- [ ] Prepositional logic (premises, validation of statements, rules of inference, etc.)
 
 # References
 
@@ -48,10 +50,11 @@ show y;
 
 ```text
 program -> declaration* EOF;
+block -> "{" declaration* "}";
 declaration -> variableDeclaration | statement;
 variableDeclaration -> "let" ("mut")? IDENTIFIER "=" expression ";";
 
-statement -> expressionStatement | printStatement;
+statement -> expressionStatement | printStatement | block;
 expressionStatement -> expression ";";
 printStatement -> "print" expression ";";
 

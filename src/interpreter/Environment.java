@@ -6,8 +6,17 @@ import java.util.Map;
 import java.util.Set;
 
 public class Environment {
+    private final Environment enclosing;
     private final Map<String, Object> values = new HashMap<>();
     private final Set<String> mutableVariables = new HashSet<>();
+
+    public Environment() {
+        this.enclosing = null;
+    }
+
+    public Environment(Environment enclosing) {
+        this.enclosing = enclosing;
+    }
 
     public static class EnvironmentError extends Interpreter.RuntimeError {
         public final String message;
@@ -29,6 +38,9 @@ public class Environment {
         if (values.containsKey(name)) {
             return values.get(name);
         }
+        if (enclosing != null) {
+            return enclosing.get(name);
+        }
         throw new EnvironmentError("Variable `" + name + "` is not defined.");
     }
 
@@ -38,6 +50,10 @@ public class Environment {
                 throw new EnvironmentError("Variable `" + name + "` is not mutable.");
             }
             values.put(name, value);
+            return;
+        }
+        if (enclosing != null) {
+            enclosing.update(name, value);
             return;
         }
         throw new EnvironmentError("Variable `" + name + "` is not defined.");

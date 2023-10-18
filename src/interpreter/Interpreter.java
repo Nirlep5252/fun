@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Interpreter implements Expression.Visitor<Object>, Statement.Visitor<Void> {
 
-    private final Environment environment = new Environment();
+    private Environment environment = new Environment();
 
     static class RuntimeError extends RuntimeException {}
     private boolean hadError = false;
@@ -26,11 +26,23 @@ public class Interpreter implements Expression.Visitor<Object>, Statement.Visito
         }
     }
 
-    public void execute(Statement statement) {
+    private void execute(Statement statement) {
         statement.accept(this);
     }
 
-    public String stringify(Object value) {
+    private void executeBlock(Statement.Block block, Environment environment) {
+        Environment previous = this.environment;
+        try {
+            this.environment = environment;
+            for (Statement statement : block.statements) {
+                execute(statement);
+            }
+        } finally {
+            this.environment = previous;
+        }
+    }
+
+    private String stringify(Object value) {
         if (value == null) return "NULL";
         if (value instanceof Double) {
             String text = value.toString();
@@ -68,6 +80,12 @@ public class Interpreter implements Expression.Visitor<Object>, Statement.Visito
             Message.error(variableDeclaration.identifier.line, e.message);
             throw new RuntimeError();
         }
+        return null;
+    }
+
+    @Override
+    public Void visitBlockStatement(Statement.Block blockStatement) {
+        executeBlock(blockStatement, new Environment(environment));
         return null;
     }
 

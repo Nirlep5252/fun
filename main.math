@@ -1,12 +1,18 @@
-let a = 6;
-let b = 9;
+let mut a = 1;
+a = a + 1;
 
-# show a + b + a * b;
+let global_x = 400;
 
-let mut x = 1;
-x = x + 1;
-show x; # Prints 2
+{
+    let mut a = 69;
+    a = a + 1;
+    show a; # 70
 
-let y = 1;
-y = y + 1; # ERROR!
-show y;
+    let x = 420;
+    show x; # 420
+
+    show global_x;
+}
+
+show a; # 2
+show x; # Error!

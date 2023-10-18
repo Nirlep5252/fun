@@ -64,6 +64,8 @@ public class Lexer {
             case '-' -> addToken(TokenType.MINUS);
             case ';' -> addToken(TokenType.SEMICOLON);
             case '/' -> addToken(TokenType.SLASH);
+            case '{' -> addToken(TokenType.LEFT_CURLY);
+            case '}' -> addToken(TokenType.RIGHT_CURLY);
 
             case '*' -> {
                 if (peek() == '*') {

@@ -2,7 +2,22 @@ package language;
 
 import scanner.Token;
 
+import java.util.List;
+
 public abstract class Statement {
+    public static class Block extends Statement {
+        public List<Statement> statements;
+
+        public Block(List<Statement> statements) {
+            this.statements = statements;
+        }
+
+        @Override
+        public <T> T accept(Visitor<T> visitor) {
+            return visitor.visitBlockStatement(this);
+        }
+    }
+
     public static class ExpressionStatement extends Statement {
         public final Expression expression;
 
@@ -50,6 +65,7 @@ public abstract class Statement {
         T visitExpressionStatement(ExpressionStatement expressionStatement);
         T visitPrintStatement(PrintStatement printStatement);
         T visitVariableDeclarationStatement(VariableDeclaration variableAssignmentOrDeclarationStatement);
+        T visitBlockStatement(Block blockStatement);
     }
 
     public abstract<T> T accept(Visitor<T> visitor);
