@@ -52,11 +52,12 @@ show y;
 program -> declaration* EOF;
 block -> "{" declaration* "}";
 declaration -> variableDeclaration | statement;
-variableDeclaration -> "let" ("mut")? IDENTIFIER "=" expression ";";
+statement -> expressionStatement | printStatement | ifStatement | block;
 
-statement -> expressionStatement | printStatement | block;
+variableDeclaration -> "let" ("mut")? IDENTIFIER "=" expression ";";
 expressionStatement -> expression ";";
 printStatement -> "print" expression ";";
+ifStatement -> "if" expression statement ("else" statement)?;
 
 expression -> assignment;
 assignment -> (IDENTIFIER "=" term) | term;

@@ -30,6 +30,8 @@ public class Lexer {
         keywords.put("not", TokenType.NOT);
         keywords.put("and", TokenType.AND);
         keywords.put("or", TokenType.OR);
+        keywords.put("if", TokenType.IF);
+        keywords.put("else", TokenType.ELSE);
     }
 
     public Lexer(String source) {

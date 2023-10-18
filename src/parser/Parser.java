@@ -62,6 +62,7 @@ public class Parser {
 
     private Statement statement() throws ParserError {
         if (match(TokenType.PRINT)) return printStatement();
+        if (match(TokenType.IF)) return ifStatement();
         if (match(TokenType.LEFT_CURLY)) return block();
         return expressionStatement();
     }
@@ -79,6 +80,16 @@ public class Parser {
         Expression value = expression();
         consume(TokenType.SEMICOLON, "Expected `;` after print statement.");
         return new Statement.PrintStatement(value);
+    }
+
+    private Statement ifStatement() throws ParserError {
+        Expression condition = expression();
+        Statement thenBranch = statement();
+        Statement elseBranch = null;
+        if (match(TokenType.ELSE)) {
+            elseBranch = statement();
+        }
+        return new Statement.IfStatement(condition, thenBranch, elseBranch);
     }
 
     private Statement expressionStatement() throws ParserError {

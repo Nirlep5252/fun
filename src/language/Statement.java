@@ -61,11 +61,29 @@ public abstract class Statement {
         }
     }
 
+    public static class IfStatement extends Statement {
+        public final Expression condition;
+        public final Statement thenBranch;
+        public final Statement elseBranch;
+
+        public IfStatement(Expression condition, Statement thenBranch, Statement elseBranch) {
+            this.condition = condition;
+            this.thenBranch = thenBranch;
+            this.elseBranch = elseBranch;
+        }
+
+        @Override
+        public <T> T accept(Visitor<T> visitor) {
+            return visitor.visitIfStatement(this);
+        }
+    }
+
     public interface Visitor<T> {
         T visitExpressionStatement(ExpressionStatement expressionStatement);
         T visitPrintStatement(PrintStatement printStatement);
         T visitVariableDeclarationStatement(VariableDeclaration variableAssignmentOrDeclarationStatement);
         T visitBlockStatement(Block blockStatement);
+        T visitIfStatement(IfStatement ifStatement);
     }
 
     public abstract<T> T accept(Visitor<T> visitor);

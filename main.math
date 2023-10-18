@@ -1,8 +1,18 @@
 let a = true;
-let b = false;
+let b = untrue;
 
 let c = not not a;
 let d = not b;
 
 show c;
 show d;
+
+if a {
+    show 1;
+
+    if not c {
+        show 2;
+    }
+} else if b {
+    show 3;
+}

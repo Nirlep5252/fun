@@ -90,6 +90,16 @@ public class Interpreter implements Expression.Visitor<Object>, Statement.Visito
     }
 
     @Override
+    public Void visitIfStatement(Statement.IfStatement ifStatement) {
+        if (truthy(evaluate(ifStatement.condition))) {
+            execute(ifStatement.thenBranch);
+        } else if (ifStatement.elseBranch != null) {
+            execute(ifStatement.elseBranch);
+        }
+        return null;
+    }
+
+    @Override
     public Object visitBinaryExpression(Expression.Binary expression) throws RuntimeError {
         Object left = evaluate(expression.left);
         Object right = evaluate(expression.right);
@@ -201,7 +211,14 @@ public class Interpreter implements Expression.Visitor<Object>, Statement.Visito
         return value;
     }
 
-    public Object evaluate(Expression expression) {
+    private Object evaluate(Expression expression) {
         return expression.accept(this);
+    }
+
+    private Boolean truthy(Object object) {
+        if (object == null) return false;
+        if (object instanceof Boolean) return (boolean) object;
+        if (object instanceof Double) return (double) object != 0.0;
+        return true;
     }
 }
