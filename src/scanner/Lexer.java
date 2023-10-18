@@ -92,6 +92,22 @@ public class Lexer {
                     addToken(TokenType.EQUAL);
                 }
             }
+            case '<' -> {
+                if (peek() == '=') {
+                    advance();
+                    addToken(TokenType.LESS_EQUAL);
+                } else {
+                    addToken(TokenType.LESS);
+                }
+            }
+            case '>' -> {
+                if (peek() == '=') {
+                    advance();
+                    addToken(TokenType.GREATER_EQUAL);
+                } else {
+                    addToken(TokenType.GREATER);
+                }
+            }
 
             // Comments
             case '#' -> {

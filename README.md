@@ -10,7 +10,7 @@ It supports:
 - [x] Unary operators (`-`)
 - [x] Print/Show output (`show`)
 - [x] Boolean values (`true`, `false`)
-- [ ] Comparison operators (`==`, `!=`, `<`, `>`, `<=`, `>=`)
+- [x] Comparison operators (`==`, `!=`, `<`, `>`, `<=`, `>=`)
 - [ ] Logical operators (`and`, `or`)
 - [x] Variables 
 - [x] Optional mutability of variables
@@ -61,7 +61,8 @@ ifStatement -> "if" expression statement ("else" statement)?;
 
 expression -> assignment;
 assignment -> (IDENTIFIER "=" assignment) | equality;
-equality -> term (("==") term)*;
+equality -> comparison (("==") comparison)*;
+comparison -> term ((">" | ">=" | "<" | "<=") term)*;
 term -> factor (( "+" | "-" ) factor)*;
 factor -> pow (( "/" | "*" ) pow)*;
 pow -> unary ("**" unary)*;

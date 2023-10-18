@@ -3,7 +3,7 @@ let b = 9;
 
 let nice = a + b + a * b;
 
-if nice == 69 {
+if nice >= 69 {
     let mut x = 1;
     x = x + 1;
     show x;

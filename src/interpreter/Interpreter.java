@@ -151,6 +151,38 @@ public class Interpreter implements Expression.Visitor<Object>, Statement.Visito
             case DOUBLE_EQUAL -> {
                 return left.equals(right);
             }
+            case GREATER -> {
+                if (left instanceof Double && right instanceof Double) {
+                    return (double) left > (double) right;
+                } else {
+                    Message.error(expression.operator.line, "Expected number values");
+                    throw new RuntimeError();
+                }
+            }
+            case GREATER_EQUAL -> {
+                if (left instanceof Double && right instanceof Double) {
+                    return (double) left >= (double) right;
+                } else {
+                    Message.error(expression.operator.line, "Expected number values");
+                    throw new RuntimeError();
+                }
+            }
+            case LESS -> {
+                if (left instanceof Double && right instanceof Double) {
+                    return (double) left < (double) right;
+                } else {
+                    Message.error(expression.operator.line, "Expected number values");
+                    throw new RuntimeError();
+                }
+            }
+            case LESS_EQUAL -> {
+                if (left instanceof Double && right instanceof Double) {
+                    return (double) left <= (double) right;
+                } else {
+                    Message.error(expression.operator.line, "Expected number values");
+                    throw new RuntimeError();
+                }
+            }
         }
 
         return null;

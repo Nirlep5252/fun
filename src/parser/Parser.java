@@ -122,9 +122,21 @@ public class Parser {
     }
 
     private Expression equality() throws ParserError {
-        Expression expression = term();
+        Expression expression = comparison();
 
         while (match(TokenType.DOUBLE_EQUAL)) {
+            Token operator = previous();
+            Expression right = comparison();
+            expression = new Expression.Binary(expression, operator, right);
+        }
+
+        return expression;
+    }
+
+    private Expression comparison() throws ParserError {
+        Expression expression = term();
+
+        while (match(TokenType.GREATER, TokenType.GREATER_EQUAL, TokenType.LESS, TokenType.LESS_EQUAL)) {
             Token operator = previous();
             Expression right = term();
             expression = new Expression.Binary(expression, operator, right);
