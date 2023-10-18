@@ -224,7 +224,7 @@ public class Parser {
 
     private Token consume(TokenType type, String message) throws ParserError {
         if (check(type)) return advance();
-        Message.error(peek().line, message);
+        Message.error(previous().line, message);
         throw new ParserError();
     }
 }
