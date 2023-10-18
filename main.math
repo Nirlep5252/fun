@@ -1,5 +1,6 @@
-let a = true;
-let b = untrue;
+let mut i = 0;
 
-show a or b;
-show a and b;
+while i < 10 {
+    show i;
+    i = i + 1;
+}

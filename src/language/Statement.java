@@ -78,12 +78,29 @@ public abstract class Statement {
         }
     }
 
+    public static class WhileStatement extends Statement {
+        public final Expression condition;
+        public final Statement body;
+
+        public WhileStatement(Expression condition, Statement body) {
+            this.condition = condition;
+            this.body = body;
+        }
+
+        @Override
+        public <T> T accept(Visitor<T> visitor) {
+            return visitor.visitWhileStatement(this);
+        }
+    }
+
+
     public interface Visitor<T> {
         T visitExpressionStatement(ExpressionStatement expressionStatement);
         T visitPrintStatement(PrintStatement printStatement);
         T visitVariableDeclarationStatement(VariableDeclaration variableAssignmentOrDeclarationStatement);
         T visitBlockStatement(Block blockStatement);
         T visitIfStatement(IfStatement ifStatement);
+        T visitWhileStatement(WhileStatement whileStatement);
     }
 
     public abstract<T> T accept(Visitor<T> visitor);

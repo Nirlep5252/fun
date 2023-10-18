@@ -32,6 +32,7 @@ public class Lexer {
         keywords.put("or", TokenType.OR);
         keywords.put("if", TokenType.IF);
         keywords.put("else", TokenType.ELSE);
+        keywords.put("while", TokenType.WHILE);
     }
 
     public Lexer(String source) {

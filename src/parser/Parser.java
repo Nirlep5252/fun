@@ -63,6 +63,7 @@ public class Parser {
     private Statement statement() throws ParserError {
         if (match(TokenType.PRINT)) return printStatement();
         if (match(TokenType.IF)) return ifStatement();
+        if (match(TokenType.WHILE)) return whileStatement();
         if (match(TokenType.LEFT_CURLY)) return block();
         return expressionStatement();
     }
@@ -90,6 +91,12 @@ public class Parser {
             elseBranch = statement();
         }
         return new Statement.IfStatement(condition, thenBranch, elseBranch);
+    }
+
+    private Statement whileStatement() throws ParserError {
+        Expression condition = expression();
+        Statement body = statement();
+        return new Statement.WhileStatement(condition, body);
     }
 
     private Statement expressionStatement() throws ParserError {

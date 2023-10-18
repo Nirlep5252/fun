@@ -101,6 +101,14 @@ public class Interpreter implements Expression.Visitor<Object>, Statement.Visito
     }
 
     @Override
+    public Void visitWhileStatement(Statement.WhileStatement whileStatement) {
+        while (truthy(evaluate(whileStatement.condition))) {
+            execute(whileStatement.body);
+        }
+        return null;
+    }
+
+    @Override
     public Object visitBinaryExpression(Expression.Binary expression) throws RuntimeError {
         Object left = evaluate(expression.left);
         Object right = evaluate(expression.right);
