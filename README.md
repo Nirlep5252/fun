@@ -9,7 +9,7 @@ It supports:
 - [x] Parenthesis
 - [x] Unary operators (`-`)
 - [x] Print/Show output (`show`)
-- [ ] Boolean values (`true`, `false`)
+- [x] Boolean values (`true`, `false`)
 - [ ] Comparison operators (`==`, `!=`, `<`, `>`, `<=`, `>=`)
 - [ ] Logical operators (`and`, `or`)
 - [x] Variables 
