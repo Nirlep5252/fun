@@ -148,6 +148,9 @@ public class Interpreter implements Expression.Visitor<Object>, Statement.Visito
                     throw new RuntimeError();
                 }
             }
+            case DOUBLE_EQUAL -> {
+                return left.equals(right);
+            }
         }
 
         return null;

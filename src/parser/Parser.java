@@ -103,7 +103,7 @@ public class Parser {
     }
 
     private Expression assignment() throws ParserError {
-        Expression left = term();
+        Expression left = equality();
 
         if (match(TokenType.EQUAL)) {
             Token equals = previous();
@@ -119,6 +119,18 @@ public class Parser {
         }
 
         return left;
+    }
+
+    private Expression equality() throws ParserError {
+        Expression expression = term();
+
+        while (match(TokenType.DOUBLE_EQUAL)) {
+            Token operator = previous();
+            Expression right = term();
+            expression = new Expression.Binary(expression, operator, right);
+        }
+
+        return expression;
     }
 
     private Expression term() throws ParserError {

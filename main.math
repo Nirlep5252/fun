@@ -1,18 +1,14 @@
-let a = true;
-let b = untrue;
+let a = 6;
+let b = 9;
 
-let c = not not a;
-let d = not b;
+let nice = a + b + a * b;
 
-show c;
-show d;
-
-if a {
-    show 1;
-
-    if not c {
-        show 2;
-    }
-} else if b {
-    show 3;
+if nice == 69 {
+    let mut x = 1;
+    x = x + 1;
+    show x;
 }
+else
+    show 420;
+
+show x;

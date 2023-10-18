@@ -68,7 +68,6 @@ public class Lexer {
             // Single width tokens
             case '(' -> addToken(TokenType.LEFT_PAREN);
             case ')' -> addToken(TokenType.RIGHT_PAREN);
-            case '=' -> addToken(TokenType.EQUAL);
             case '+' -> addToken(TokenType.PLUS);
             case '-' -> addToken(TokenType.MINUS);
             case ';' -> addToken(TokenType.SEMICOLON);
@@ -83,6 +82,14 @@ public class Lexer {
                     addToken(TokenType.DOUBLE_STAR);
                 } else {
                     addToken(TokenType.STAR);
+                }
+            }
+            case '=' -> {
+                if (peek() == '=') {
+                    advance();
+                    addToken(TokenType.DOUBLE_EQUAL);
+                } else {
+                    addToken(TokenType.EQUAL);
                 }
             }
 

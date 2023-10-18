@@ -60,7 +60,8 @@ printStatement -> "print" expression ";";
 ifStatement -> "if" expression statement ("else" statement)?;
 
 expression -> assignment;
-assignment -> (IDENTIFIER "=" term) | term;
+assignment -> (IDENTIFIER "=" assignment) | equality;
+equality -> term (("==") term)*;
 term -> factor (( "+" | "-" ) factor)*;
 factor -> pow (( "/" | "*" ) pow)*;
 pow -> unary ("**" unary)*;
