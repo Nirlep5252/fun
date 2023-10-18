@@ -32,7 +32,14 @@ It supports:
 let a = 6;
 let b = 9;
 
-show a + b + a * b; # prints 69 (nice)
+let nice = a + b + a * b;
+show nice; # prints 69 (nice)
+
+if nice >= 69 {
+    show 123;
+} else {
+    show 321;
+}
 
 let mut x = 1;
 x = x + 1;

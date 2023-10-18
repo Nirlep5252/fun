@@ -2,13 +2,18 @@ let a = 6;
 let b = 9;
 
 let nice = a + b + a * b;
+show nice;
 
-if nice >= 69 {
-    let mut x = 1;
-    x = x + 1;
-    show x;
+if nice == 69 {
+    show 123;
+} else {
+    show 321;
 }
-else
-    show 420;
 
-show x;
+let mut x = 1;
+x = x + 1;
+show x; # prints 2
+
+let y = 1;
+y = y + 1; # error! y is not mutable
+show y;
