@@ -1,7 +1,6 @@
 # Breaking Math
 
-BreakingMath is a simple interpreted programming language.
-You can use it to evaluate mathematical expressions (cuz it only has number datatype lol).
+BreakingMath is a simple interpreted programming language inspired by [Lox](https://github.com/munificent/craftinginterpreters).
 
 It supports:
 - [x] Basic mathematical operations (`+`, `-`, `*`, `/`, `**`)
@@ -143,12 +142,14 @@ comparison -> term ((">" | ">=" | "<" | "<=") term)*;
 term -> factor (( "+" | "-" ) factor)*;
 factor -> pow (( "/" | "*" ) pow)*;
 pow -> unary ("**" unary)*;
-unary -> (("-" | NOT) unary) | primary;
+unary -> (("-" | NOT) unary) | call;
+call -> primary ("(" arguments? ")")*;
+arguments -> expression ("," expression)*
 primary -> NUMBER | "(" expression ")" | IDENTIFIER | TRUE | FALSE | GET | NULL;
 ```
 
 # References
 
-- Guide: https://craftinginterpreters.com/
+- Guide Followed: https://craftinginterpreters.com/ OR https://github.com/munificent/craftinginterpreters
 - Visitor Pattern: https://en.wikipedia.org/wiki/Visitor_pattern
 - BNF: https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form

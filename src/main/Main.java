@@ -49,8 +49,5 @@ public class Main {
         if (interpreter.isHadError()) {
             System.exit(69);
         }
-
-        // TODO: finish parsing
-        // TODO: evaluating expressions
     }
 }

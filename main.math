@@ -1,5 +1,1 @@
-fn nice(a, b) {
-    show a + b + a * b;
-}
-
-nice(6, 9);
+show 1970 + (time() / 60 / 60 / 24 / 365.25);

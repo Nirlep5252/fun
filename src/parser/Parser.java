@@ -238,7 +238,31 @@ public class Parser {
             return new Expression.Unary(operator, right);
         }
 
-        return primary();
+        return call();
+    }
+
+    private Expression call() throws ParserError {
+        Expression expression = primary();
+
+        while (true) {
+            if (match(TokenType.LEFT_PAREN)) {
+                if (match(TokenType.RIGHT_PAREN)) {
+                    expression = new Expression.Call(expression, new ArrayList<>(), previous());
+                } else {
+                    List<Expression> args = new ArrayList<>();
+                    args.add(expression());
+                    while (match(TokenType.COMMA)) {
+                        args.add(expression());
+                    }
+                    Token token = consume(TokenType.RIGHT_PAREN, "Expected `)` to finish call.");
+                    expression = new Expression.Call(expression, args, token);
+                }
+            } else {
+                break;
+            }
+        }
+
+        return expression;
     }
 
     private Expression primary() throws ParserError {

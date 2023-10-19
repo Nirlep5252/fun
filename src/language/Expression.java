@@ -1,7 +1,8 @@
 package language;
 
 import scanner.Token;
-import util.AstPrinter;
+
+import java.util.List;
 
 /**
  * This class represents an expression in the language.
@@ -137,12 +138,29 @@ public abstract class Expression {
         }
     }
 
+    public static class Call extends Expression {
+        public final Expression callee;
+        public final List<Expression> arguments;
+        public final Token token;
+
+        public Call(Expression callee, List<Expression> arguments, Token token) {
+            this.callee = callee;
+            this.arguments = arguments;
+            this.token = token;
+        }
+
+        @Override
+        public <T> T accept(Visitor<T> visitor) {
+            return visitor.visitCallExpression(this);
+        }
+    }
+
     /**
      * This interface is used to implement the
      * <a href="https://en.wikipedia.org/wiki/Visitor_pattern">Visitor pattern</a>.
      * It is used to traverse expression trees.
      * <br /> <br />
-     * @see AstPrinter
+     * @see interpreter.Interpreter
      * @param <T> The return type of the visitor methods.
      */
     public interface Visitor<T> {
@@ -152,8 +170,9 @@ public abstract class Expression {
         T visitGetExpression (Get expression);
         T visitGroupingExpression (Grouping expression);
         T visitVariableExpression (Variable expression);
-        T visitAssignmentExpression(Assignment assignment);
+        T visitAssignmentExpression(Assignment expression);
         T visitLogicalExpression(Logical expression);
+        T visitCallExpression(Call expression);
     }
 
     /**

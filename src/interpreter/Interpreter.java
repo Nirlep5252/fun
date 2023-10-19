@@ -1,16 +1,39 @@
 package interpreter;
 
+import language.Callable;
 import language.Expression;
 import language.Statement;
 import scanner.TokenType;
 import util.Message;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Interpreter implements Expression.Visitor<Object>, Statement.Visitor<Void> {
 
-    private Environment environment = new Environment();
+    private final Environment globals = new Environment();
+    private Environment environment = globals;
     private final Scanner scanner = new Scanner(System.in);
+
+    public Interpreter() {
+        globals.define("time", new Callable() {
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+                return (double) System.currentTimeMillis() / 1000.0;
+            }
+
+            @Override
+            public int arity() {
+                return 0;
+            }
+
+            @Override
+            public String toString() {
+                return "<fn>";
+            }
+        }, false);
+    }
 
     static class RuntimeError extends RuntimeException {}
     private boolean hadError = false;
@@ -184,12 +207,12 @@ public class Interpreter implements Expression.Visitor<Object>, Statement.Visito
             }
             case SLASH -> {
                 if (left instanceof Double && right instanceof Double) {
-                    return Math.pow((double) left, (double) right);
-                } else {
                     if ((double) right == 0.0) {
                         Message.error(expression.operator.line, "Division by zero is not allowed");
                         throw new RuntimeError();
                     }
+                    return (double) left / (double) right;
+                } else {
                     Message.error(expression.operator.line, "Expected number values");
                     throw new RuntimeError();
                 }
@@ -317,6 +340,24 @@ public class Interpreter implements Expression.Visitor<Object>, Statement.Visito
         }
 
         return evaluate(expression.right);
+    }
+
+    @Override
+    public Object visitCallExpression(Expression.Call expression) throws RuntimeError {
+        Object callee = evaluate(expression.callee);
+        if (!(callee instanceof Callable function)) {
+            Message.error(expression.token.line, "You can only call functions");
+            throw new RuntimeError();
+        }
+        List<Object> arguments = new ArrayList<>();
+        for (Expression argument : expression.arguments) {
+            arguments.add(evaluate(argument));
+        }
+        if (arguments.size() != function.arity()) {
+            Message.error(expression.token.line, "Expected " + function.arity() + " arguments but got " + arguments.size());
+            throw new RuntimeError();
+        }
+        return function.call(this, arguments);
     }
 
     private Object evaluate(Expression expression) {
