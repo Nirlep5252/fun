@@ -21,35 +21,95 @@ It supports:
 - [ ] Importing other files (`use`)
 - [ ] Prepositional logic (premises, validation of statements, rules of inference, etc.)
 
-# References
+# Examples:
 
-- Guide: https://craftinginterpreters.com/
-- Visitor Pattern: https://en.wikipedia.org/wiki/Visitor_pattern
-- BNF: https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form
+1. Basic stuff
+    ```
+    let a = 6;
+    let b = 9;
+    show a + b + a * b;
 
-# Example program:
+    show (2 + -3) * (5 + 4) ** 2; # u can use parenthesis or the `**` operator for exponentiation
+    ```
 
-```
-let a = 6;
-let b = 9;
+2. Boolean values and comparisons and logical operations
+    ```
+    let a = 123;
+    let b = 456;
 
-let nice = a + b + a * b;
-show nice; # prints 69 (nice)
+    show a == b;
+    show a != b;
+    show a >= b;
+    show a > b;
+    show a <= b;
+    show a < b;
 
-if nice >= 69 {
-    show 123;
-} else {
-    show 321;
-}
+    let x = true;
+    let y = untrue; # same as false lol
 
-let mut x = 1;
-x = x + 1;
-show x; # prints 2
+    show x or y; # true
+    show x and y; # false
+    ```
 
-let y = 1;
-y = y + 1; # error! y is not mutable
-show y;
-```
+3. Variable scope
+    ```
+    let a = 123;
+
+    {
+        let a = 456;
+        show a; # 456
+        let b = 69;
+    }
+
+    show a; # 123
+    show b; # error! `b` is not defined
+    ```
+
+4. Variable mutability
+    ```
+    let a = 123;
+    let mut b = 456;
+
+    b = b + 1;
+    show b; # 457
+
+    a = a + 1; # error! `a` is not mutable
+    ```
+
+5. Control flow
+    ```
+    let a = 123;
+    let b = 456;
+
+    if a > b {
+        show 1;
+    } else {
+        show 2;
+    }
+
+    let mut i = 0;
+    while i <= 10 {
+        show i;
+        i = i + 1;
+    }
+
+    # for loop is just a while loop with a fancy syntax
+    for i from 0 to 10 {
+        show i;
+    }
+    ```
+
+6. User input
+    ```
+    let a = get; # Gets a number from the user (value is NULL if user entered a non-number)
+    show a;
+
+    if a == NULL {
+        show -1;
+    } else {
+        show 1;
+    }
+    ```
 
 # Language Grammar
 
@@ -81,3 +141,9 @@ pow -> unary ("**" unary)*;
 unary -> (("-" | NOT) unary) | primary;
 primary -> NUMBER | "(" expression ")" | IDENTIFIER | TRUE | FALSE | GET | NULL;
 ```
+
+# References
+
+- Guide: https://craftinginterpreters.com/
+- Visitor Pattern: https://en.wikipedia.org/wiki/Visitor_pattern
+- BNF: https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form

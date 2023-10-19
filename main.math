@@ -1,2 +1,10 @@
-let x = get or 69;
-show x;
+let a = get; # get user input (number only)
+let b = get;
+
+if (a == NULL or b == NULL) {
+    show -1;
+} else {
+    show a + b;
+
+    # rest of the code
+}
