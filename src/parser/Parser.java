@@ -262,6 +262,12 @@ public class Parser {
         if (match(TokenType.FALSE)) {
             return new Expression.Literal(false);
         }
+        if (match(TokenType.GET)) {
+            return new Expression.Get();
+        }
+        if (match(TokenType.NULL)) {
+            return new Expression.Literal(null);
+        }
 
         Message.error(peek().line, "Expected expression.");
         throw new ParserError();

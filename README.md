@@ -15,9 +15,9 @@ It supports:
 - [x] Variables 
 - [x] Optional mutability of variables
 - [x] Variable scoping
-- [ ] User defined functions 
+- [ ] User defined functions
 - [x] Control flow (`if`, `else`, `for`, `while`)
-- [ ] User input (`get`)
+- [x] User input (`get`)
 - [ ] Importing other files (`use`)
 - [ ] Prepositional logic (premises, validation of statements, rules of inference, etc.)
 
@@ -79,5 +79,5 @@ term -> factor (( "+" | "-" ) factor)*;
 factor -> pow (( "/" | "*" ) pow)*;
 pow -> unary ("**" unary)*;
 unary -> (("-" | NOT) unary) | primary;
-primary -> NUMBER | "(" expression ")" | IDENTIFIER | TRUE | FALSE;
+primary -> NUMBER | "(" expression ")" | IDENTIFIER | TRUE | FALSE | GET | NULL;
 ```

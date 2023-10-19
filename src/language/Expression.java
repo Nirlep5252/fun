@@ -66,6 +66,15 @@ public abstract class Expression {
         }
     }
 
+    public static class Get extends Expression {
+        public Get() {}
+
+        @Override
+        public <T> T accept(Visitor<T> visitor) {
+            return visitor.visitGetExpression(this);
+        }
+    }
+
     /**
      * This class represents a grouping expression. <br />
      * Eg: <code>(1 + 2)</code>
@@ -140,6 +149,7 @@ public abstract class Expression {
         T visitBinaryExpression (Binary expression);
         T visitUnaryExpression (Unary expression);
         T visitLiteralExpression (Literal expression);
+        T visitGetExpression (Get expression);
         T visitGroupingExpression (Grouping expression);
         T visitVariableExpression (Variable expression);
         T visitAssignmentExpression(Assignment assignment);

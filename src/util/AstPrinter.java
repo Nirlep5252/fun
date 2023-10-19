@@ -43,6 +43,11 @@ public class AstPrinter implements Expression.Visitor<String> {
         return expression.value.toString();
     }
 
+    @Override
+    public String visitGetExpression(Expression.Get expression) {
+        return null;
+    }
+
     String postfix(String name, Expression... expressions) {
         StringBuilder builder = new StringBuilder();
         for (Expression expression : expressions) {

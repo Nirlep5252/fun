@@ -37,6 +37,8 @@ public class Lexer {
         keywords.put("from", TokenType.FROM);
         keywords.put("to", TokenType.TO);
         keywords.put("by", TokenType.STEP);
+        keywords.put("get", TokenType.GET);
+        keywords.put("NULL", TokenType.NULL);
     }
 
     public Lexer(String source) {

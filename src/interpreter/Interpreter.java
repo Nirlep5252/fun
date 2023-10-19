@@ -5,10 +5,12 @@ import language.Statement;
 import scanner.TokenType;
 import util.Message;
 import java.util.List;
+import java.util.Scanner;
 
 public class Interpreter implements Expression.Visitor<Object>, Statement.Visitor<Void> {
 
     private Environment environment = new Environment();
+    private final Scanner scanner = new Scanner(System.in);
 
     static class RuntimeError extends RuntimeException {}
     private boolean hadError = false;
@@ -189,6 +191,10 @@ public class Interpreter implements Expression.Visitor<Object>, Statement.Visito
                 }
             }
             case DOUBLE_EQUAL -> {
+                if (left == null && right == null)
+                    return true;
+                if (left == null)
+                    return false;
                 return left.equals(right);
             }
             case GREATER -> {
@@ -257,6 +263,17 @@ public class Interpreter implements Expression.Visitor<Object>, Statement.Visito
     @Override
     public Object visitLiteralExpression(Expression.Literal expression) {
         return expression.value;
+    }
+
+    @Override
+    public Object visitGetExpression(Expression.Get expression) {
+        double value;
+        try {
+            value = scanner.nextDouble();
+        } catch (Exception e) {
+            return null;
+        }
+        return value;
     }
 
     @Override

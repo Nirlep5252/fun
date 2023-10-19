@@ -1,3 +1,7 @@
-for i from 1 to 1000000 {
-    show i;
+let input = get;
+
+if input == NULL {
+    show -1;
+} else {
+    show input + 1;
 }
