@@ -31,7 +31,87 @@ public class Interpreter implements Expression.Visitor<Object>, Statement.Visito
 
             @Override
             public String toString() {
-                return "<fn>";
+                return "<fn time>";
+            }
+        }, false);
+        globals.define("sin", new Callable() {
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+                if (!(arguments.get(0) instanceof Double)) {
+                    Message.error("Expected a number value");
+                    throw new RuntimeError();
+                }
+                return Math.sin((double) arguments.get(0));
+            }
+
+            @Override
+            public int arity() {
+                return 1;
+            }
+
+            @Override
+            public String toString() {
+                return "<fn sin>";
+            }
+        }, false);
+        globals.define("cos", new Callable() {
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+                if (!(arguments.get(0) instanceof Double)) {
+                    Message.error("Expected a number value");
+                    throw new RuntimeError();
+                }
+                return Math.cos((double) arguments.get(0));
+            }
+
+            @Override
+            public int arity() {
+                return 1;
+            }
+
+            @Override
+            public String toString() {
+                return "<fn cos>";
+            }
+        }, false);
+        globals.define("tan", new Callable() {
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+                if (!(arguments.get(0) instanceof Double)) {
+                    Message.error("Expected a number value");
+                    throw new RuntimeError();
+                }
+                return Math.tan((double) arguments.get(0));
+            }
+
+            @Override
+            public int arity() {
+                return 1;
+            }
+
+            @Override
+            public String toString() {
+                return "<fn tan>";
+            }
+        }, false);
+        globals.define("log", new Callable() {
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+                if (!(arguments.get(0) instanceof Double)) {
+                    Message.error("Expected a number value");
+                    throw new RuntimeError();
+                }
+                return Math.log((double) arguments.get(0));
+            }
+
+            @Override
+            public int arity() {
+                return 1;
+            }
+
+            @Override
+            public String toString() {
+                return "<fn log>";
             }
         }, false);
     }

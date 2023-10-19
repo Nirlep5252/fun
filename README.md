@@ -1,10 +1,11 @@
-# Breaking Math
+# BreakingMath
 
 BreakingMath is a simple interpreted programming language inspired by [Lox](https://github.com/munificent/craftinginterpreters).
+Now, I know the name has no relation to the language, well that's because it is what it is bro. happens.
 
 It supports:
 - [x] Basic mathematical operations (`+`, `-`, `*`, `/`, `**`)
-- [ ] Builtin mathematical functions (`sin`, `cos`, `tan`, `log`, `sqrt`)
+- [x] Builtin mathematical functions (`sin`, `cos`, `tan`, `log`)
 - [x] Parenthesis
 - [x] Unary operators (`-`)
 - [x] Print/Show output (`show`)
@@ -20,12 +21,13 @@ It supports:
 - [ ] `break` and `continue` statements
 - [x] User input (`get`)
 - [ ] Importing other files (`use`)
-- [ ] Prepositional logic (premises, validation of statements, rules of inference, etc.)
+- [ ] Prepositional logic (premises, validation of statements, rules of inference, etc.) (real shit)
 
 # How to run the interpreter?
 
 - Install [Java 21](https://openjdk.org/projects/jdk/21/) or above.
 - Get the `meth.jar` file from the [releases](https://github.com/Nirlep5252/BreakingMath/releases)
+- Run the following command:
     ```bash
     java -jar meth.jar <path_to_your_code_file>
     ```
