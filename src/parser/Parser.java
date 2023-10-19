@@ -43,8 +43,25 @@ public class Parser {
         if (match(TokenType.LET)) {
             return variableDeclaration();
         }
+        if (match(TokenType.FN)) {
+            return functionDeclaration();
+        }
 
         return statement();
+    }
+
+    private Statement functionDeclaration() throws ParserError {
+        Token identifier = consume(TokenType.IDENTIFIER, "Expected function name.");
+        consume(TokenType.LEFT_PAREN, "Expected `(` after function name.");
+        List<Token> parameters = new ArrayList<>();
+        if (!check(TokenType.RIGHT_PAREN)) {
+            do {
+                parameters.add(consume(TokenType.IDENTIFIER, "Expected parameter name."));
+            } while (match(TokenType.COMMA));
+        }
+        consume(TokenType.RIGHT_PAREN, "Expected `)` after parameters.");
+        consume(TokenType.LEFT_CURLY, "Expected `{` before function body.");
+        return new Statement.FunctionDeclaration(identifier, parameters, (Statement.Block) block());
     }
 
     private Statement variableDeclaration() throws ParserError {
@@ -79,9 +96,13 @@ public class Parser {
     }
 
     private Statement printStatement() throws ParserError {
-        Expression value = expression();
+        List<Expression> expressions = new ArrayList<>();
+        expressions.add(expression());
+        while (match(TokenType.COMMA)) {
+            expressions.add(expression());
+        }
         consume(TokenType.SEMICOLON, "Expected `;` after print statement.");
-        return new Statement.PrintStatement(value);
+        return new Statement.PrintStatement(expressions);
     }
 
     private Statement ifStatement() throws ParserError {

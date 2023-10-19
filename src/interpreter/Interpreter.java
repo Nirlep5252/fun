@@ -2,6 +2,7 @@ package interpreter;
 
 import language.Callable;
 import language.Expression;
+import language.Function;
 import language.Statement;
 import scanner.TokenType;
 import util.Message;
@@ -12,7 +13,7 @@ import java.util.Scanner;
 
 public class Interpreter implements Expression.Visitor<Object>, Statement.Visitor<Void> {
 
-    private final Environment globals = new Environment();
+    public final Environment globals = new Environment();
     private Environment environment = globals;
     private final Scanner scanner = new Scanner(System.in);
 
@@ -55,7 +56,7 @@ public class Interpreter implements Expression.Visitor<Object>, Statement.Visito
         statement.accept(this);
     }
 
-    private void executeBlock(Statement.Block block, Environment environment) {
+    public void executeBlock(Statement.Block block, Environment environment) {
         Environment previous = this.environment;
         try {
             this.environment = environment;
@@ -88,8 +89,11 @@ public class Interpreter implements Expression.Visitor<Object>, Statement.Visito
 
     @Override
     public Void visitPrintStatement(Statement.PrintStatement printStatement) {
-        Object value = evaluate(printStatement.expression);
-        System.out.println(stringify(value));
+        for (Expression expression : printStatement.expressions) {
+            Object value = evaluate(expression);
+            System.out.print(stringify(value) + " ");
+        }
+        System.out.println();
         return null;
     }
 
@@ -165,6 +169,18 @@ public class Interpreter implements Expression.Visitor<Object>, Statement.Visito
         }
 
         this.environment = previous;
+        return null;
+    }
+
+    @Override
+    public Void visitFunctionDeclarationStatement(Statement.FunctionDeclaration functionDeclarationStatement) {
+        Function function = new Function(functionDeclarationStatement);
+        try {
+            environment.define(functionDeclarationStatement.identifier.lexeme, function, false);
+        } catch (Environment.EnvironmentError e) {
+            Message.error(functionDeclarationStatement.identifier.line, e.message);
+            throw new RuntimeError();
+        }
         return null;
     }
 

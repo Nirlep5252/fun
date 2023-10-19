@@ -32,10 +32,10 @@ public abstract class Statement {
     }
 
     public static class PrintStatement extends Statement {
-        public final Expression expression;
+        public final List<Expression> expressions;
 
-        public PrintStatement(Expression expression) {
-            this.expression = expression;
+        public PrintStatement(List<Expression> expressions) {
+            this.expressions = expressions;
         }
 
         @Override
@@ -114,6 +114,23 @@ public abstract class Statement {
         }
     }
 
+    public static class FunctionDeclaration extends Statement {
+        public final Token identifier;
+        public final List<Token> parameters;
+        public final Block body;
+
+        public FunctionDeclaration(Token identifier, List<Token> parameters, Block body) {
+            this.identifier = identifier;
+            this.parameters = parameters;
+            this.body = body;
+        }
+
+        @Override
+        public <T> T accept(Visitor<T> visitor) {
+            return visitor.visitFunctionDeclarationStatement(this);
+        }
+    }
+
 
     public interface Visitor<T> {
         T visitExpressionStatement(ExpressionStatement expressionStatement);
@@ -123,6 +140,7 @@ public abstract class Statement {
         T visitIfStatement(IfStatement ifStatement);
         T visitWhileStatement(WhileStatement whileStatement);
         T visitForStatement(ForStatement forStatement);
+        T visitFunctionDeclarationStatement(FunctionDeclaration functionDeclarationStatement);
     }
 
     public abstract<T> T accept(Visitor<T> visitor);

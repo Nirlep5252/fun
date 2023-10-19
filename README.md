@@ -11,7 +11,7 @@ It supports:
 - [x] Boolean values (`true`, `false`)
 - [x] Comparison operators (`==`, `!=`, `<`, `>`, `<=`, `>=`)
 - [x] Logical operators (`and`, `or`)
-- [x] Variables 
+- [x] Variables
 - [x] Optional mutability of variables
 - [x] Variable scoping
 - [ ] User defined functions
@@ -115,6 +115,21 @@ It supports:
     }
     ```
 
+7. Functions
+    ```
+    fn tower_of_hanoi (count, start, mid, end) {
+        if count == 1 {
+            show start, end;
+        } else {
+            tower_of_hanoi(count - 1, start, end, mid);
+            tower_of_hanoi(1, start, mid, end);
+            tower_of_hanoi(count - 1, mid, start, end);
+        }
+    }
+
+    tower_of_hanoi(get, 1, 2, 3);
+   ```
+
 # Language Grammar
 
 - This is similar to [BNF](https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form)
@@ -123,12 +138,14 @@ It supports:
 ```text
 program -> declaration* EOF;
 block -> "{" declaration* "}";
-declaration -> variableDeclaration | statement;
+declaration -> functionDeclaration | variableDeclaration | statement;
 statement -> expressionStatement | printStatement | ifStatement | whileStatement | forStatement | block;
 
+functionDeclaration -> "fn" function ";";
+function -> IDENTIFIER "(" parameters? ")" block;
 variableDeclaration -> "let" ("mut")? IDENTIFIER "=" expression ";";
 expressionStatement -> expression ";";
-printStatement -> "print" expression ";";
+printStatement -> "print" expression ( "," expression )* ";";
 ifStatement -> "if" expression statement ("else" statement)?;
 whileStatement -> "while" expression statement;
 forStatement -> "for" IDENTIFIER "from" expression "to" expression ("by" expression)? statement;

@@ -2,7 +2,7 @@
   <configuration default="false" name="Run with file" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="main.Main" />
     <module name="BreakingMath" />
-    <option name="PROGRAM_PARAMETERS" value="main.math" />
+    <option name="PROGRAM_PARAMETERS" value="main.meth" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>

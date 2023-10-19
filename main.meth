@@ -1,0 +1,11 @@
+fn tower_of_hanoi (count, start, mid, end) {
+    if count == 1 {
+        show start, end;
+    } else {
+        tower_of_hanoi(count - 1, start, end, mid);
+        tower_of_hanoi(1, start, mid, end);
+        tower_of_hanoi(count - 1, mid, start, end);
+    }
+}
+
+tower_of_hanoi(get, 1, 2, 3);
