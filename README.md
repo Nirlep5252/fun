@@ -16,7 +16,7 @@ It supports:
 - [x] Optional mutability of variables
 - [x] Variable scoping
 - [ ] User defined functions 
-- [x] Control flow (`if`, `else`)
+- [x] Control flow (`if`, `else`, `for`, `while`)
 - [ ] User input (`get`)
 - [ ] Importing other files (`use`)
 - [ ] Prepositional logic (premises, validation of statements, rules of inference, etc.)
