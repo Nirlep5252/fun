@@ -305,7 +305,7 @@ public class Interpreter implements Expression.Visitor<Object>, Statement.Visito
 
     @Override
     public Object visitLogicalExpression(Expression.Logical expression) {
-        Object left = truthy(evaluate(expression.left));
+        Object left = evaluate(expression.left);
         if (expression.operator.type == TokenType.OR) {
             if (truthy(left)) return left;
         } else {

@@ -9,14 +9,8 @@
   <component name="ChangeListManager">
     <list default="true" id="370b56a7-c2a4-4411-86e0-aedd382922a0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.math" beforeDir="false" afterPath="$PROJECT_DIR$/main.math" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/interpreter/Interpreter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/interpreter/Interpreter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/language/Expression.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/language/Expression.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/parser/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/parser/Parser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/scanner/Lexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/scanner/Lexer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/scanner/TokenType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/scanner/TokenType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/AstPrinter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/AstPrinter.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

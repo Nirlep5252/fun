@@ -1,7 +1,2 @@
-let input = get;
-
-if input == NULL {
-    show -1;
-} else {
-    show input + 1;
-}
+let x = get or 69;
+show x;
