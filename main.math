@@ -1,10 +1,15 @@
-let a = get; # get user input (number only)
-let b = get;
+let a = 123;
+let b = 456;
 
-if (a == NULL or b == NULL) {
-    show -1;
-} else {
-    show a + b;
+show a == b;
+show not (a == b); # there is no `!=`
+show a >= b;
+show a > b;
+show a <= b;
+show a < b;
 
-    # rest of the code
-}
+let x = true;
+let y = untrue; # same as false lol
+
+show x or y; # true
+show x and y; # false

@@ -38,7 +38,7 @@ It supports:
     let b = 456;
 
     show a == b;
-    show a != b;
+    show not (a == b); # there is no `!=`
     show a >= b;
     show a > b;
     show a <= b;
