@@ -97,6 +97,11 @@ It supports:
     for i from 0 to 10 {
         show i;
     }
+   
+    # exponential for loop
+    for i from 1 to 10000 by i {
+        show i;
+    }
     ```
 
 6. User input

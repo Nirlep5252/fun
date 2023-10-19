@@ -1,15 +1,5 @@
-let a = 123;
-let b = 456;
+fn nice(a, b) {
+    show a + b + a * b;
+}
 
-show a == b;
-show not (a == b); # there is no `!=`
-show a >= b;
-show a > b;
-show a <= b;
-show a < b;
-
-let x = true;
-let y = untrue; # same as false lol
-
-show x or y; # true
-show x and y; # false
+nice(6, 9);
