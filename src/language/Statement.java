@@ -93,6 +93,27 @@ public abstract class Statement {
         }
     }
 
+    public static class ForStatement extends Statement {
+        public final Token identifier;
+        public final Expression lower;
+        public final Expression higher;
+        public final Expression step;
+        public final Statement body;
+
+        public ForStatement(Token identifier, Expression lower, Expression higher, Expression step, Statement body) {
+            this.identifier = identifier;
+            this.lower = lower;
+            this.higher = higher;
+            this.step = step;
+            this.body = body;
+        }
+
+        @Override
+        public <T> T accept(Visitor<T> visitor) {
+            return visitor.visitForStatement(this);
+        }
+    }
+
 
     public interface Visitor<T> {
         T visitExpressionStatement(ExpressionStatement expressionStatement);
@@ -101,6 +122,7 @@ public abstract class Statement {
         T visitBlockStatement(Block blockStatement);
         T visitIfStatement(IfStatement ifStatement);
         T visitWhileStatement(WhileStatement whileStatement);
+        T visitForStatement(ForStatement forStatement);
     }
 
     public abstract<T> T accept(Visitor<T> visitor);

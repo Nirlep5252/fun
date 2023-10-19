@@ -4,7 +4,6 @@ import language.Expression;
 import language.Statement;
 import scanner.TokenType;
 import util.Message;
-
 import java.util.List;
 
 public class Interpreter implements Expression.Visitor<Object>, Statement.Visitor<Void> {
@@ -105,6 +104,38 @@ public class Interpreter implements Expression.Visitor<Object>, Statement.Visito
         while (truthy(evaluate(whileStatement.condition))) {
             execute(whileStatement.body);
         }
+        return null;
+    }
+
+    @Override
+    public Void visitForStatement(Statement.ForStatement forStatement) throws RuntimeError {
+        Object lower = evaluate(forStatement.lower);
+        Object higher = evaluate(forStatement.higher);
+        if (!(lower instanceof Double) || !(higher instanceof Double)) {
+            Message.error(forStatement.identifier.line, "Lower and upper bounds must be numbers");
+            throw new RuntimeError();
+        }
+        environment.define(forStatement.identifier.lexeme, lower, true);
+        while (true) {
+            execute(forStatement.body);
+            Object step = evaluate(forStatement.step);
+            if (!(step instanceof Double)) {
+                Message.error(forStatement.identifier.line, "The step should be a number.");
+                throw new RuntimeError();
+            }
+            double i = (double) environment.get(forStatement.identifier.lexeme);
+            if ((double) step > 0 && (i + (double) step) > (double) higher)
+                break;
+            if ((double) step < 0 && (i + (double) step) < (double) higher)
+                break;
+            if (i == (double) higher)
+                break;
+            environment.update(
+                forStatement.identifier.lexeme,
+                (double) environment.get(forStatement.identifier.lexeme) + (double) step
+            );
+        }
+
         return null;
     }
 

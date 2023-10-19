@@ -15,6 +15,7 @@
       <change beforePath="$PROJECT_DIR$/src/language/Statement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/language/Statement.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/parser/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/parser/Parser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/scanner/Lexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/scanner/Lexer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scanner/TokenType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/scanner/TokenType.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +44,7 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;JavaMethodFindUsagesOptions.isImplementingMethods&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,

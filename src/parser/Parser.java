@@ -64,6 +64,7 @@ public class Parser {
         if (match(TokenType.PRINT)) return printStatement();
         if (match(TokenType.IF)) return ifStatement();
         if (match(TokenType.WHILE)) return whileStatement();
+        if (match(TokenType.FOR)) return forStatement();
         if (match(TokenType.LEFT_CURLY)) return block();
         return expressionStatement();
     }
@@ -97,6 +98,24 @@ public class Parser {
         Expression condition = expression();
         Statement body = statement();
         return new Statement.WhileStatement(condition, body);
+    }
+
+    private Statement forStatement() throws ParserError {
+        Expression initializer = expression();
+        Token from = consume(TokenType.FROM, "Expected `from` keyword after initializer.");
+        if (!(initializer instanceof Expression.Variable)) {
+            Message.error(from.line, "Expected variable name after `for` keyword.");
+            throw new ParserError();
+        }
+        Expression lower = expression();
+        consume(TokenType.TO, "Expected `to` keyword after lower bound.");
+        Expression higher = expression();
+        Expression step = new Expression.Literal(1.0);
+        if (match(TokenType.STEP)) {
+            step = expression();
+        }
+        Statement block = statement();
+        return new Statement.ForStatement(((Expression.Variable) initializer).identifier, lower, higher, step, block);
     }
 
     private Statement expressionStatement() throws ParserError {

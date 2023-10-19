@@ -11,7 +11,7 @@ public enum TokenType {
     IDENTIFIER, NUMBER,
 
     // Keywords
-    PRINT, LET, MUT, NOT, FN, FOR, IF, WHILE, ELSE, RETURN, TRUE, FALSE, AND, OR,
+    PRINT, LET, MUT, NOT, FN, IF, WHILE, ELSE, RETURN, TRUE, FALSE, AND, OR, FOR, FROM, TO, STEP,
 
     EOF
 }

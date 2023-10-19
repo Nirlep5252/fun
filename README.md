@@ -60,13 +60,14 @@ show y;
 program -> declaration* EOF;
 block -> "{" declaration* "}";
 declaration -> variableDeclaration | statement;
-statement -> expressionStatement | printStatement | ifStatement | whileStatement | block;
+statement -> expressionStatement | printStatement | ifStatement | whileStatement | forStatement | block;
 
 variableDeclaration -> "let" ("mut")? IDENTIFIER "=" expression ";";
 expressionStatement -> expression ";";
 printStatement -> "print" expression ";";
 ifStatement -> "if" expression statement ("else" statement)?;
 whileStatement -> "while" expression statement;
+forStatement -> "for" IDENTIFIER "from" expression "to" expression ("by" expression)? statement;
 
 expression -> assignment;
 assignment -> (IDENTIFIER "=" assignment) | logic_or;
