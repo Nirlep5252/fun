@@ -1,0 +1,12 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="meth">
+    <output-path>$PROJECT_DIR$/out/artifacts/meth</output-path>
+    <root id="archive" name="meth.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="module-source" name="BreakingMath" />
+      <element id="module-output" name="BreakingMath" />
+    </root>
+  </artifact>
+</component>

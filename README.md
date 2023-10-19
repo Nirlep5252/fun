@@ -22,6 +22,14 @@ It supports:
 - [ ] Importing other files (`use`)
 - [ ] Prepositional logic (premises, validation of statements, rules of inference, etc.)
 
+# How to run the interpreter?
+
+- Install [Java 21](https://openjdk.org/projects/jdk/21/) or above.
+- Get the `meth.jar` file from the [releases](https://github.com/Nirlep5252/BreakingMath/releases)
+    ```bash
+    java -jar meth.jar <path_to_your_code_file>
+    ```
+
 # Examples:
 
 1. Basic stuff
