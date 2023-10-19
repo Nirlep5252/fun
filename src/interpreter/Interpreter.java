@@ -113,11 +113,14 @@ public class Interpreter implements Expression.Visitor<Object>, Statement.Visito
     public Void visitForStatement(Statement.ForStatement forStatement) throws RuntimeError {
         Object lower = evaluate(forStatement.lower);
         Object higher = evaluate(forStatement.higher);
+        Environment previous = environment;
+        Environment forEnvironment = new Environment(environment);
+        this.environment = forEnvironment;
         if (!(lower instanceof Double) || !(higher instanceof Double)) {
             Message.error(forStatement.identifier.line, "Lower and upper bounds must be numbers");
             throw new RuntimeError();
         }
-        environment.define(forStatement.identifier.lexeme, lower, true);
+        forEnvironment.define(forStatement.identifier.lexeme, lower, true);
         while (true) {
             execute(forStatement.body);
             Object step = evaluate(forStatement.step);
@@ -125,19 +128,20 @@ public class Interpreter implements Expression.Visitor<Object>, Statement.Visito
                 Message.error(forStatement.identifier.line, "The step should be a number.");
                 throw new RuntimeError();
             }
-            double i = (double) environment.get(forStatement.identifier.lexeme);
+            double i = (double) forEnvironment.get(forStatement.identifier.lexeme);
             if ((double) step > 0 && (i + (double) step) > (double) higher)
                 break;
             if ((double) step < 0 && (i + (double) step) < (double) higher)
                 break;
             if (i == (double) higher)
                 break;
-            environment.update(
+            forEnvironment.update(
                 forStatement.identifier.lexeme,
-                (double) environment.get(forStatement.identifier.lexeme) + (double) step
+                (double) forEnvironment.get(forStatement.identifier.lexeme) + (double) step
             );
         }
 
+        this.environment = previous;
         return null;
     }
 
