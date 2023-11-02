@@ -1,11 +1,17 @@
-fn tower_of_hanoi (count, start, mid, end) {
-    if count == 1 {
-        show start, end;
-    } else {
-        tower_of_hanoi(count - 1, start, end, mid);
-        tower_of_hanoi(1, start, mid, end);
-        tower_of_hanoi(count - 1, mid, start, end);
+let random_number = round((time() % 10) + 1);
+
+let mut guess_correct = false;
+let mut guess = -1;
+
+while not (guess == random_number) {
+    guess = get;
+    if not (guess == random_number) {
+        if guess > random_number {
+            show -1;
+        } else {
+            show 1;
+        }
     }
 }
 
-tower_of_hanoi(get, 1, 2, 3);
+show true;

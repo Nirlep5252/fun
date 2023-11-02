@@ -114,10 +114,33 @@ public class Interpreter implements Expression.Visitor<Object>, Statement.Visito
                 return "<fn log>";
             }
         }, false);
+        globals.define("round", new Callable() {
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+                if (!(arguments.get(0) instanceof Double)) {
+                    Message.error("Expected a number value");
+                    throw new RuntimeError();
+                }
+                return (double) Math.round((double) arguments.get(0));
+            }
+
+            @Override
+            public int arity() {
+                return 1;
+            }
+
+            @Override
+            public String toString() {
+                return "<fn round>";
+            }
+        }, false);
     }
 
-    static class RuntimeError extends RuntimeException {}
+    static class RuntimeError extends RuntimeException {
+    }
+
     private boolean hadError = false;
+
     public boolean isHadError() {
         return this.hadError;
     }
@@ -149,7 +172,8 @@ public class Interpreter implements Expression.Visitor<Object>, Statement.Visito
     }
 
     private String stringify(Object value) {
-        if (value == null) return "NULL";
+        if (value == null)
+            return "NULL";
         if (value instanceof Double) {
             String text = value.toString();
             if (text.endsWith(".0")) {
@@ -178,13 +202,13 @@ public class Interpreter implements Expression.Visitor<Object>, Statement.Visito
     }
 
     @Override
-    public Void visitVariableDeclarationStatement(Statement.VariableDeclaration variableDeclaration) throws RuntimeError {
+    public Void visitVariableDeclarationStatement(Statement.VariableDeclaration variableDeclaration)
+            throws RuntimeError {
         try {
             environment.define(
-                variableDeclaration.identifier.lexeme,
-                evaluate(variableDeclaration.expression),
-                variableDeclaration.mutable
-            );
+                    variableDeclaration.identifier.lexeme,
+                    evaluate(variableDeclaration.expression),
+                    variableDeclaration.mutable);
         } catch (Environment.EnvironmentError e) {
             Message.error(variableDeclaration.identifier.line, e.message);
             throw new RuntimeError();
@@ -243,9 +267,8 @@ public class Interpreter implements Expression.Visitor<Object>, Statement.Visito
             if (i == (double) higher)
                 break;
             forEnvironment.update(
-                forStatement.identifier.lexeme,
-                (double) forEnvironment.get(forStatement.identifier.lexeme) + (double) step
-            );
+                    forStatement.identifier.lexeme,
+                    (double) forEnvironment.get(forStatement.identifier.lexeme) + (double) step);
         }
 
         this.environment = previous;
@@ -313,11 +336,24 @@ public class Interpreter implements Expression.Visitor<Object>, Statement.Visito
                     throw new RuntimeError();
                 }
             }
+            case MODULO -> {
+                if (left instanceof Double && right instanceof Double) {
+                    if ((double) right == 0.0) {
+                        Message.error(expression.operator.line, "Division by zero is not allowed");
+                        throw new RuntimeError();
+                    }
+                    return (double) left % (double) right;
+                } else {
+                    Message.error(expression.operator.line, "Expected number values");
+                    throw new RuntimeError();
+                }
+            }
             case DOUBLE_EQUAL -> {
                 if (left == null && right == null)
                     return true;
                 if (left == null)
                     return false;
+                // System.out.println("INFO: cmp: " + left + " " + right);
                 return left.equals(right);
             }
             case GREATER -> {
@@ -430,9 +466,11 @@ public class Interpreter implements Expression.Visitor<Object>, Statement.Visito
     public Object visitLogicalExpression(Expression.Logical expression) {
         Object left = evaluate(expression.left);
         if (expression.operator.type == TokenType.OR) {
-            if (truthy(left)) return left;
+            if (truthy(left))
+                return left;
         } else {
-            if (!truthy(left)) return left;
+            if (!truthy(left))
+                return left;
         }
 
         return evaluate(expression.right);
@@ -450,7 +488,8 @@ public class Interpreter implements Expression.Visitor<Object>, Statement.Visito
             arguments.add(evaluate(argument));
         }
         if (arguments.size() != function.arity()) {
-            Message.error(expression.token.line, "Expected " + function.arity() + " arguments but got " + arguments.size());
+            Message.error(expression.token.line,
+                    "Expected " + function.arity() + " arguments but got " + arguments.size());
             throw new RuntimeError();
         }
         return function.call(this, arguments);
@@ -461,9 +500,12 @@ public class Interpreter implements Expression.Visitor<Object>, Statement.Visito
     }
 
     private Boolean truthy(Object object) {
-        if (object == null) return false;
-        if (object instanceof Boolean) return (boolean) object;
-        if (object instanceof Double) return (double) object != 0.0;
+        if (object == null)
+            return false;
+        if (object instanceof Boolean)
+            return (boolean) object;
+        if (object instanceof Double)
+            return (double) object != 0.0;
         return true;
     }
 }

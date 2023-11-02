@@ -258,7 +258,7 @@ logic_and -> equality ("and" equality)*;
 equality -> comparison (("==") comparison)*;
 comparison -> term ((">" | ">=" | "<" | "<=") term)*;
 term -> factor (( "+" | "-" ) factor)*;
-factor -> pow (( "/" | "*" ) pow)*;
+factor -> pow (( "/" | "*" | "%" ) pow)*;
 pow -> unary ("**" unary)*;
 unary -> (("-" | NOT) unary) | call;
 call -> primary ("(" arguments? ")")*;

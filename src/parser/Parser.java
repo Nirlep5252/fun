@@ -15,7 +15,8 @@ public class Parser {
     private int current = 0;
     private boolean hadError = false;
 
-    private static class ParserError extends RuntimeException {}
+    private static class ParserError extends RuntimeException {
+    }
 
     public Parser(List<Token> tokens) {
         this.tokens = tokens;
@@ -78,11 +79,16 @@ public class Parser {
     }
 
     private Statement statement() throws ParserError {
-        if (match(TokenType.PRINT)) return printStatement();
-        if (match(TokenType.IF)) return ifStatement();
-        if (match(TokenType.WHILE)) return whileStatement();
-        if (match(TokenType.FOR)) return forStatement();
-        if (match(TokenType.LEFT_CURLY)) return block();
+        if (match(TokenType.PRINT))
+            return printStatement();
+        if (match(TokenType.IF))
+            return ifStatement();
+        if (match(TokenType.WHILE))
+            return whileStatement();
+        if (match(TokenType.FOR))
+            return forStatement();
+        if (match(TokenType.LEFT_CURLY))
+            return block();
         return expressionStatement();
     }
 
@@ -171,7 +177,7 @@ public class Parser {
     private Expression logic_or() throws ParserError {
         Expression expression = logic_and();
 
-        while(match(TokenType.OR)) {
+        while (match(TokenType.OR)) {
             Token operator = previous();
             Expression right = logic_and();
             expression = new Expression.Logical(expression, operator, right);
@@ -231,7 +237,7 @@ public class Parser {
     private Expression factor() throws ParserError {
         Expression expression = pow();
 
-        while (match(TokenType.STAR, TokenType.SLASH)) {
+        while (match(TokenType.STAR, TokenType.SLASH, TokenType.MODULO)) {
             Token operator = previous();
             Expression right = pow();
             expression = new Expression.Binary(expression, operator, right);
@@ -322,11 +328,15 @@ public class Parser {
         advance();
 
         while (!isAtEnd()) {
-            if (previous().type == TokenType.SEMICOLON) return;
+            if (previous().type == TokenType.SEMICOLON)
+                return;
 
             switch (peek().type) {
-                case PRINT, LET, FN, FOR, IF, RETURN, WHILE -> {return;}
-                default -> {}
+                case PRINT, LET, FN, FOR, IF, RETURN, WHILE -> {
+                    return;
+                }
+                default -> {
+                }
             }
             advance();
         }
@@ -344,7 +354,8 @@ public class Parser {
     }
 
     private boolean check(TokenType type) {
-        if (isAtEnd()) return false;
+        if (isAtEnd())
+            return false;
         return peek().type == type;
     }
 
@@ -357,7 +368,8 @@ public class Parser {
     }
 
     private Token advance() {
-        if (!isAtEnd()) current++;
+        if (!isAtEnd())
+            current++;
         return previous();
     }
 
@@ -366,7 +378,8 @@ public class Parser {
     }
 
     private Token consume(TokenType type, String message) throws ParserError {
-        if (check(type)) return advance();
+        if (check(type))
+            return advance();
         Message.error(previous().line, message);
         throw new ParserError();
     }
