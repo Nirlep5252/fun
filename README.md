@@ -1,6 +1,6 @@
-# BreakingMath
+# Fun
 
-BreakingMath is a simple interpreted programming language inspired by [Lox](https://github.com/munificent/craftinginterpreters).
+Fun is a fun interpreted programming language inspired by [Lox](https://github.com/munificent/craftinginterpreters).
 Now, I know the name has no relation to the language, well that's because it is what it is bro. happens.
 
 It supports:
@@ -27,11 +27,11 @@ It supports:
 ## How to run the interpreter?
 
 - Install [Java 21](https://openjdk.org/projects/jdk/21/) or above.
-- Get the `meth.jar` file from the [releases](https://github.com/Nirlep5252/BreakingMath/releases)
+- Get the `fun.jar` file from the [releases](https://github.com/Nirlep5252/fun/releases)
 - Run the following command:
 
     ```bash
-    java -jar meth.jar <path_to_your_code_file>
+    java -jar fun.jar <path_to_your_code_file>
     ```
 
 ## Examples
