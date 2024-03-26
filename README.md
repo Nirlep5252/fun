@@ -1,7 +1,6 @@
 # Fun
 
 Fun is a fun interpreted programming language inspired by [Lox](https://github.com/munificent/craftinginterpreters).
-Now, I know the name has no relation to the language, well that's because it is what it is bro. happens.
 
 It supports:
 
